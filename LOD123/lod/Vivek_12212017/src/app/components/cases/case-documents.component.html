@@ -1,0 +1,116 @@
+<div class="main-content row">
+	
+	<ul class="nav nav-tabs appmenu">
+
+  <li [ngClass]="{active: selectedCTab==='cDocument'}" (click)="selectedCTab='cDocument'">
+  	<a style="cursor: pointer;" routerLink="./opsPlan" routerLinkActive="active">Document</a>
+  </li> 
+	<li [ngClass]="{active: selectedCTab==='cDRec'}" (click)="selectedCTab='cDRec'">
+  	<a style="cursor: pointer;" routerLink="./otrTask" routerLinkActive="active">Data Records</a>
+  </li>
+	<li [ngClass]="{active: selectedCTab==='cCalls'}" (click)="selectedCTab='cCalls'">
+  	<a style="cursor: pointer;" routerLink="./cmr" routerLinkActive="active">Calls</a>
+  </li> 
+	<li [ngClass]="{active: selectedCTab==='cAtAGlance'}" (click)="selectedCTab='cAtAGlance'">
+  	<a style="cursor: pointer;" routerLink="./actMail" routerLinkActive="active">At-a-Glance</a>
+  </li> 
+</ul>
+
+	<div class="row">
+		<div class="col-md-8 col-sm-6">
+		<div class="row">&nbsp;
+		</div>
+		<div class="row" style="text-align: center;">
+		<button type="submit" (click)="goPrevious()"><span>&lt;</span></button>
+  <button type="submit" (click)="goNext()"><span>&gt;</span></button>
+  <button type="submit" (click)="zoomIn()"><span>+</span></button>
+  <button type="submit" (click)="fit()"><span>100%</span></button>
+  <button type="submit" (click)="zoomOut()"><span>-</span></button>
+  <button type="submit" (click)="rotate()"><span>90</span></button>
+  <span>Page: </span><input type="text" placeholder="Page" [(ngModel)]="page">
+  </div>
+  <pdf-viewer [src]="pdfSrc" 
+  [page]="page" 
+  [rotation]="rotation"
+  [original-size]="originalSize"
+  [zoom]="zoom"
+  [show-all]="false" 
+  style="display: block;"></pdf-viewer>
+  
+		</div>
+		
+
+		<div class="col-md-4 col-sm-6">
+			
+			
+ 		
+<!-- <div class="panel panel-default"> -->
+
+		
+			<div class="portlet docsearch">
+				    <div class="col-sm-6">
+						    <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage">
+						        <option [ngValue]="10">10</option>
+						        <option [ngValue]="25">25</option>
+						        <option [ngValue]="50">50</option>
+						        <option [ngValue]="100">100</option>
+						    </select> Entries</label>
+				    </div>
+				    <div class="col-sm-6 text-right">
+					    <label class="label-control">
+					    	Search:
+					    <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery" />
+					    </label>
+				    </div>
+		
+		<!--
+		    <table class="table table-striped" [mfData]="data | documentFilter : filterQuery" #mf="mfDataTable"
+		           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+		        <thead>
+		        <tr>
+		            <th style="width: 30%">
+		                <mfDefaultSorter by="sortAuthorDate">Category</mfDefaultSorter>
+		            </th>
+		            <th style="width: 20%">
+		                <mfDefaultSorter by="Category">Subject</mfDefaultSorter>
+		            </th>
+		            <th style="width: 30%">
+		                <mfDefaultSorter [by]="Subject">Author Date</mfDefaultSorter>
+					</th>
+					<th style="width: 20%">
+		                <mfDefaultSorter [by]="Subject">Received</mfDefaultSorter>
+					</th>
+		          
+		        </tr>
+		        </thead>
+		        <tbody>
+
+						<tr *ngFor="let item of mf.data; let i = index" (click)="setClickedRow(item)" [class.active]="i == selectedRow">
+								<td>{{item.DOCUMENT_CATEGORY_TYPE}}</td>
+								<td>{{(item.DOCUMENT_SUBJECT_DESC?.length>100)? (item.DOCUMENT_SUBJECT_DESC | slice:0:100)+'..':(item.DOCUMENT_SUBJECT_DESC)}}</td>
+								<td>{{item.DOCUMENT_CREATE_DATE}}</td>
+								<td>{{item.CREATE_DTS}}</td>
+							
+			</tr>
+			
+		        </tbody>
+		        <tr>
+		        	<td colspan="1">
+		               
+		                  &nbsp;
+		            </td>
+		            <td colspan="3">
+		               
+		                  <mfBootstrapPaginator></mfBootstrapPaginator>
+		            </td>
+		        </tr>
+		    </table>
+		-->  
+		</div>
+		
+
+		</div>
+					
+	</div>
+</div>
+

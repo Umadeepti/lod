@@ -1,0 +1,258 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="row">
+			&nbsp;
+		</div>
+		<!-- PDF -->
+		<div class="col-md-8 col-sm-6">
+			<div class="row" style="text-align: center;">
+				<button type="submit" (click)="goPrevious()"><span>&lt;</span></button>
+				<button type="submit" (click)="goNext()"><span>&gt;</span></button>
+				<button type="submit" (click)="zoomIn()"><span>+</span></button>
+				<button type="submit" (click)="fit()"><span>100%</span></button>
+				<button type="submit" (click)="zoomOut()"><span>-</span></button>
+				<button type="submit" (click)="rotate()"><span>90</span></button>
+				<span>Page: </span><input type="text" placeholder="Page" [(ngModel)]="page">
+			</div>
+			<pdf-viewer [src]="pdfSrc" 
+				[page]="page" 
+				[rotation]="rotation"
+				[original-size]="originalSize"
+				[zoom]="zoom"
+				[show-all]="false" 
+				style="display: block;">
+			</pdf-viewer>
+		</div>
+				
+		<!-- Other Options Case Document Alert Model -->	
+		<div id="createCasemodal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<!--
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+						<h4 class="modal-title">Case Message </h4>
+					</div>
+				-->
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+		
+					<form>
+						<div class="row form-group" align="center">
+								
+							<label class="label-control" >
+								Case Info: {{caseMessage}} <br> <button class="btn btn-primary btn-xs" (click)="closeCaseCreateAlert()">OK</button> 
+						
+							</label>
+							<!-- 
+							<div class="col-sm-4"> 
+								
+							 
+							 <button class="btn btn-primary btn-block" (click)="closeCaseCreateAlert()">CLOSE</button> 
+							</div> 		
+									-->
+							</div>	 
+						
+					</form>
+					</div>	  
+					</div>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->		
+		
+		<!-- Other Options Case Document Alert Model -->	
+		<div id="spinnerCasemodal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width:250px;">
+				<div class="modal-content">
+					<!--
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+						<h4 class="modal-title">Case Message </h4>
+					</div>
+				-->
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+							<p>Please wait for case creation.</p>
+					
+						<div class="row form-group">
+								
+							<img src="owcs/ext/DOL/img/spinner.gif" *ngIf="loading" height="160" width="160" />
+							<!-- 
+							<div class="col-sm-4"> 
+								<label class="label-control">
+								Case Info: {{caseMessage}} <button class="btn btn-primary btn-xs" (click)="closeCaseCreateAlert()">OK</button> 
+						
+							</label>
+							 
+							 <button class="btn btn-primary btn-block" (click)="closeCaseCreateAlert()">CLOSE</button> 
+							</div> 		
+									-->
+								 </div> 
+						
+					
+					</div>	  
+					</div>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<div class="col-md-4 col-sm-6">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default portlet navigation">
+					<header class="portlet-header">
+						<div class="panel-heading">
+							<h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapseSelectForm" aria-expanded="true" aria-controls="collapseSelectForm">Case Create</h4>
+						</div>
+					</header>
+					<div id="collapseSelectForm" class="panel-collapse collapse in">
+						<div class="portlet-content" id="caseMandatory">
+							<div class="form-group row has-icon icon-left">
+								<label for="formSel" class="col-xs-5 col-form-label col-form-label-sm"> Form<span class="input-required">*</span></label>
+								<div class="col-xs-7">
+									<div class="input-group"> 
+											<span class="input-group-addon">
+											<!-- <span class=" fa fa-list-alt"></span> -->
+											<span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+										</span>
+										<select class="form-Nav" id="formSel" name="formSel" #formSelection 
+												(change)="selectForm($event.target.selectedIndex)">
+											<option value="1" selected>LS-202</option>
+											<option value="2">LS-203</option>
+											<option value="3">LS-262</option>
+											<!--<option>LS-203</option>
+											<option>LS-207</option>
+											<option>LS-208</option>
+											<option>LS-262</option>
+											<option>Letter Of Intent</option> -->
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<!-- Case Create section 1 --> 
+							<div *ngIf="selectedForm===1">
+								<ls-form-202 [selectedForm]=selectedForm [caseDocIntakeId]=caseDocIntakeId [scannedDate]=scannedDate (caseCreateEvent)="caseCreateEvent($event)" (dupCaseLetterEvent)="dupCaseLetterEvent($event)" ></ls-form-202>
+							</div>
+							<div *ngIf="selectedForm===2">
+								<ls-form-203 [selectedForm]=selectedForm [caseDocIntakeId]=caseDocIntakeId (caseCreateEvent)="caseCreateEvent($event)" (dupCaseLetterEvent)="dupCaseLetterEvent($event)" ></ls-form-203>
+							</div>
+							<div *ngIf="selectedForm===3">
+								<ls-form-262 [selectedForm]=selectedForm [caseDocIntakeId]=caseDocIntakeId (caseCreateEvent)="caseCreateEvent($event)" (dupCaseLetterEvent)="dupCaseLetterEvent($event)" ></ls-form-262>
+							</div>
+							<!-- End of Section 1 Case create -->
+						</div>
+					</div>
+				</div>
+				<!-- Start Other Options-->
+				<div class="panel panel-default portlet navigation">
+					<header class="portlet-header">
+						<div class="panel-heading">
+								<h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">Other Options</h4>
+						</div>
+					</header>
+					<div id="collapseFour" class="panel-collapse collapse">
+						<div class="portlet-content" id="otherOptions">							
+							<form #otherOptionsForm="ngForm" (ngSubmit)="casaNext(otherOptionsForm, districtOfficeSel)">
+								<div class="form-group row">
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="District_Office"/> District Office Queue</label>
+									</div>
+									<div class="col-lg-6 col-xs-6" align="left">   
+										<select class="form-Nav" id="districtOfficeSel" name="districtOfficeSel" #districtOfficeSel   [(ngModel)]="districtOfficeSelection"> <!-- </select> ng-options="districtOffice.type as districtOffice.type for districtOffice  in districtOfficees track by districtOffice.type"> -->
+											<option value="">Select</option>
+											<option value="1">Boston</option>
+											<option value="2">New York</option>
+											<option value="5">Norfolk</option>
+											<option value="6">Jacksonville</option>
+											<option value="7">New Orleans</option>
+											<option value="8">Houston</option>	
+											<option value="13">San Francisco</option>
+											<option value="14">Seattle</option>
+											<option value="18">Long Beach</option>	
+										</select>
+									</div>
+								</div>
+								<div class="form-group row" >
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="Incoming" /> Incoming Mail Queue </label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="IncomingQueueNow"/> Index Document Now</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="SecondLevel"/> Second Level Queue</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="DeleteDocument"  /> Delete Document</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="description-text-input" class="col-lg-6 col-xs-6 col-form-label col-form-label-sm"> Reason</label>
+									<div class="col-lg-6 col-xs-6" align="center">
+										<textarea name="otherOptionReason" id="otherOptionReason" [(ngModel)]="otherOptionReason"   class="form-Nav" rows="4" cols="30"></textarea>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col-sm-4 col-xs-5 col-sm-offset-4 col-xs-offset-3 text-center">
+									<button class="btn btn-primary btn-block" type="submit">Submit</button>
+									<!--  	<button class="btn btn-primary btn-block" (click)="casaNext(districtOfficeSel.value)">Submit</button>
+										<input type="submit" value="Submit" class="btn btn-primary btn-block" id="SubmitButton" /> -->
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- End of Other Options-->
+			</div>
+		</div>
+
+		<!-- Other Options -->			
+		<!-- Other Options Delete Document Model -->	
+		<div id="deletemodal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<form>
+									<div class="row form-group">
+												<div class="col-sm-4"> 
+													<!--  <button class="btn btn-primary btn-block" id="dupDeleteNLetter" data-ng-click="deleteDocs(taskID)">CONFIRM DELETE <div>(no letter)</div></button> -->
+													<button class="btn btn-primary btn-block" (click)="DelQueWithOutLetter()">CONFIRM DELETE <div>(no letter)</div></button> 
+												</div>
+												<div class="col-sm-4">
+												<button class="btn btn-primary btn-block" (click)="DelQueWithLetter()">CONFIRM DELETE<div>(send letter)</div></button> 
+													<!--  <button class="btn btn-primary btn-block" id="dupDeleteYLetter" data-ng-click="deleteDocsY(taskID)">CONFIRM DELETE<div>(send letter)</div></button> -->
+												</div>
+												<div class="col-sm-4"> 
+													<!-- <input type="submit" value="CANCEL " class="btn btn-primary btn-block" id="cancelButton"/>-->
+													
+													<button class="btn btn-primary btn-block" (click)="DelWithCancel()">CANCEL<div>(back)</div></button> 
+													
+													
+												</div> 
+											</div>
+								</form>
+							</div>	  
+						</div>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+				
+
+	</div>
+					
+</div>
+

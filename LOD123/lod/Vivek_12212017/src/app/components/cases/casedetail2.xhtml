@@ -1,0 +1,308 @@
+<div>
+	<h1 class="page-header">{{casedetails.programname}} Case: {{casenumber}}
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Case Actions <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="actionlink">Schedule a Conference</a></li>
+    <li><a class="actionlink">Create Reminder</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#/newclaim?c={{casenumber}}">New Claim</a></li>
+  </ul>
+</div>
+	
+	
+	</h1>
+
+
+<div id="remindermodal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title">Create A Reminder</h4>
+      </div>
+      <div class="modal-body">
+ 			<form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Reminder Date:</label>
+			    <div class="col-sm-8">
+					<div class='input-group date' id='reminderdatetime'>
+	                    <input type='text' class="form-control" />
+	                    <span class="input-group-addon">
+	                        <span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+	                </div>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Title:</label>
+			    <div class="col-sm-8">
+	 			    <input type="text" class="form-control" id="taskname" placeholder="title"/>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Description:</label>
+			    <div class="col-sm-8">
+	 			    <input type="text" class="form-control" id="description" placeholder="description"/>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label"> </label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static"><button id="dolremindercreatebutton" class="btn btn-primary">Create</button></p>
+			    </div>
+			  </div>
+			</form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="newconfmodal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title">Schedule A Conference</h4>
+      </div>
+      <div class="modal-body">
+ 			<form class="form-horizontal">
+ 				<input type="hidden" id="iwid" value="{{injuredWorker.id}}"/>
+ 				<input type="hidden" id="casenumber" value="{{casenumber}}"/>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Schedule Conference:</label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static">{{injuredWorker.firstname}} {{injuredWorker.lastname}}</p>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Date:</label>
+			    <div class="col-sm-8">
+
+					<div class='input-group date' id='confdatetime'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Conference Type:</label>
+			    <div class="col-sm-8">
+			    	<select id="conftype" class="selectpicker">
+					    <option>Please select type...</option>
+					    <option>Injury Arose OICE</option>
+					    <option>Situs/Status</option>
+					    <option>Last Resp Employer</option>
+					    <option>Average Weekly Wage</option>
+					    <option>Attorney Fees</option>
+					    <option>Medical Nec/Cost</option>
+					    <option>Perm Total</option>
+					    <option>Temp Total</option>
+					</select>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label"> </label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static"><button id="dolconfcreatebutton" class="btn btn-primary">Create</button></p>
+			    </div>
+			  </div>
+			</form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="newclaimmodal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title">Create New Claim</h4>
+      </div>
+      <div class="modal-body">
+ 			<form class="form-horizontal">
+ 				<input type="hidden" id="iwid" value="{{injuredWorker.id}}"/>
+ 				<input type="hidden" id="casenumber" value="{{casenumber}}"/>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">New Claim for:</label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static">{{injuredWorker.firstname}} {{injuredWorker.lastname}}</p>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Claim Type:</label>
+			    <div class="col-sm-8">
+			    	<select id="claimtype" class="selectpicker">
+					  <optgroup label="Employee">
+					    <option>Employee Part B Claim</option>
+					    <option>Employee Part E Claim</option>
+					    <option>Employee Other</option>
+					  </optgroup>
+					  <optgroup label="Survivor">
+					    <option>Survivor Part B Claim</option>
+					    <option>Survivor Part E Claim</option>
+					    <option>Survivor Other</option>
+					  </optgroup>
+					</select>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label"> </label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static"><button id="dolclaimcreatebutton" class="btn btn-primary">Create</button></p>
+			    </div>
+			  </div>
+			</form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="iwmodal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title">Injured Worker Details</h4>
+      </div>
+      <div class="modal-body">
+        	<p id="iwarea"><img id="iwphoto" src="/myopencafapp/app/img/kramer.jpg"/></p>
+ 			<form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Name</label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static">{{injuredWorker.firstname}} {{injuredWorker.lastname}}</p>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">SSN</label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static">{{injuredWorker.ssn}}</p>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Address</label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static">{{injuredWorker.address}}</p>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Birth Date</label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static">{{formatDate(injuredWorker.dob)}}</p>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-3 control-label">Date of Death</label>
+			    <div class="col-sm-8">
+			    	<p class="form-control-static">{{formatDate(injuredWorker.dod)}}</p>
+			    </div>
+			  </div>
+			</form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Case Type:</label>
+    <div class="col-sm-10">
+    	<p class="form-control-static">{{casedetails.casetype}} ({{casedetails.casestatus}})</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Injured Worker:</label>
+    <div class="col-sm-10">
+    	<p class="form-control-static"><a id="doliw"><span class="glyphicon glyphicon-zoom-in"></span> {{injuredWorker.firstname}} {{injuredWorker.lastname}}</a></p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Date Received:</label>
+    <div class="col-sm-10">
+    	<p class="form-control-static">{{formatDate(casedetails.receivedate)}}</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Office/Examiner Assigned:</label>
+    <div class="col-sm-10">
+    	<p class="form-control-static">{{casedetails.districtoffice}}: {{casedetails.examinerassigned}}</p>
+    </div>
+  </div>
+
+</form>
+
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active" id="claimli"><a id="navclaims" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="collapseClaims">Claims</a></li>
+  <li role="presentation" id="historyli"><a id="navhistory" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseHistory">History</a></li>
+  <li role="presentation" id="documentsli"><a id="navdocuments" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseDocuments">Documents</a></li>
+</ul>
+
+<div class="collapse in" id="collapseClaims">
+	<h3 class="dolcasesection">Claims</h3>
+	<div id="dolactionbuttons" class="btn-group btn-group-sm" role="group" aria-label="..." data-ng-class="{'shown' : isSelectionMade(), 'hidden' : !isSelectionMade()}">
+		<a id="dolopen" type="button" class="btn btn-primary" href="{{processViewUrl}}">Open Claim Process</a>
+	</div>
+		<table width="100%" id="claimstable" class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Claim Number</th>
+					<th>File Date</th>
+					<th>Date of Injury</th>
+					<th>Claim Type</th>
+					<th>Claimant</th>
+					<th>Claimant Type</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+		</table>
+</div>
+
+<div class="collapse" id="collapseHistory">
+	<h3 class="dolcasesection">History</h3>
+		<table width="100%" id="casehistory" class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Category / Code</th>
+					<th>Event Date</th>
+					<th>Event Description</th>
+					<th>Action Taken By</th>
+				</tr>
+			</thead>
+		</table>
+</div>
+
+<div class="collapse" id="collapseDocuments">
+	<h3 class="dolcasesection">Documents</h3>
+
+<div class="media dolfileline" ng-repeat="doc in filelist">
+	<div class="media-left">
+		<a target="_blank" href="{{doc.fetchurl}}" data-toggle="tooltip" title="Default tooltip"> 
+		<img class="media-object" src="{{doc.thumburl}}" data-holder-rendered="true" style="width: 64px; height: 64px;"/>
+		</a> 
+	</div>
+	<div class="media-body">
+		<h4 class="media-heading"><span class='fa 
+		{{doc.filetype === "image/jpeg" ? "fa-file-image-o" : ""}}
+		{{doc.filetype === "application/pdf" ? "fa-file-pdf-o" : ""}}
+		fa-fw'></span> File: <a target="_blank" href="{{doc.fetchurl}}">{{doc.filename}}</a> <span class="dolfiledetails">({{doc.filesize}} received {{doc.datereceived}})</span></h4>
+		{{doc.description}}
+	</div>
+</div>
+
+</div>
+
+</div>

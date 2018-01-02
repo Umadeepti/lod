@@ -1,0 +1,136 @@
+<div class="main-content row">
+	
+	<ul class="nav nav-tabs appmenu">
+
+  <li [ngClass]="{active: selectedCTab==='cDocument'}" (click)="selectedCTab='cDocument'">
+  	<a style="cursor: pointer;" routerLink="./opsPlan" routerLinkActive="active">Document</a>
+  </li> 
+	<li [ngClass]="{active: selectedCTab==='cDRec'}" (click)="selectedCTab='cDRec'">
+  	<a style="cursor: pointer;" routerLink="./otrTask" routerLinkActive="active">Data Records</a>
+  </li>
+	<li [ngClass]="{active: selectedCTab==='cCalls'}" (click)="selectedCTab='cCalls'">
+  	<a style="cursor: pointer;" routerLink="./cmr" routerLinkActive="active">Calls</a>
+  </li> 
+	<li [ngClass]="{active: selectedCTab==='cAtAGlance'}" (click)="selectedCTab='cAtAGlance'">
+  	<a style="cursor: pointer;" routerLink="./actMail" routerLinkActive="active">At-a-Glance</a>
+  </li> 
+</ul>
+
+<div class="row">
+	<div class="panel panel-default case-details" *ngIf="caseDetail">
+
+		<div class="panel-body row">
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Case&nbsp;Number:</strong>
+		    <span class="detail-value">{{caseDetail.CASE_NUMBER}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Name:</strong>
+		    <span class="detail-value">{{caseDetail.IW_NAME}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Office:</strong>
+		    <span class="detail-value">{{caseDetail.OWCP_DISTRICT_ID}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Assigned:</strong>
+		    <span class="detail-value">{{caseDetail.CASE_CREATE_DATE}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Last Transfer:</strong>
+		    <span class="detail-value">{{caseDetail.LAST_TRANSFER_DATE}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Last Reassign:</strong>
+		    <span class="detail-value">{{caseDetail.LAST_REASSIGN_DATE}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">DOI:</strong>
+		    <span class="detail-value">{{caseDetail.INJURY_DATE}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Waiver:</strong>
+		    <span class="detail-value"></span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Status:</strong>
+		    <span class="detail-value">{{caseDetail.CASE_STATUS_TYPE}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Other&nbsp;Documents:</strong>
+		    <span class="detail-value">{{caseDetail.OTHER_DOCUMENTS}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">ALJ&nbsp;Documents:</strong>
+		    <span class="detail-value">{{caseDetail.ALJ_DOCUMENTS}}</span>
+		  </div>
+		  <div class="col-sm-6 col-md-3 col-lg-3">
+		    <strong class="detail-label">Ready for&nbsp;BRB:</strong>
+		    <span class="detail-value">{{caseDetail.BRB_STATUS_TYPE}}</span>
+		  </div>
+		</div>
+
+		</div>
+</div>
+	<div class="row">
+
+				<div class="row table-settings width-cap">
+				    <div class="col-sm-6">
+						    <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage">
+						        <option [ngValue]="10">10</option>
+						        <option [ngValue]="25">25</option>
+						        <option [ngValue]="50">50</option>
+						        <option [ngValue]="100">100</option>
+						    </select> Entries</label>
+				    </div>
+				    <div class="col-sm-6 text-right">
+					    <label class="label-control">
+					    	Search:
+					    <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery" />
+					    </label>
+				    </div>
+				</div>
+			<!--
+		    <table class="table table-striped width-cap" [mfData]="data | documentFilter : filterQuery" #mf="mfDataTable"
+		           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+		        <thead>
+		        <tr>
+		            <th style="width: 15%">
+		                <mfDefaultSorter by="sortAuthorDate">Category</mfDefaultSorter>
+		            </th>
+		            <th style="width: 55%">
+		                <mfDefaultSorter by="Category">Subject</mfDefaultSorter>
+		            </th>
+		            <th style="width: 15%">
+										<mfDefaultSorter [by]="Subject">Author Date</mfDefaultSorter>
+									</th>
+								<th style="width: 15%">
+		                <mfDefaultSorter [by]="Subject">Received</mfDefaultSorter>
+								</th>
+		          
+		     </tr>
+		        </thead>
+		        <tbody>
+				
+				
+				<tr *ngFor="let item of mf.data; let i = index" (click)="setClickedRow(item)" [class.active]="i == selectedRow">
+						<td>{{item.DOCUMENT_CATEGORY_TYPE}}</td>
+						<td>{{(item.DOCUMENT_SUBJECT_DESC?.length>100)? (item.DOCUMENT_SUBJECT_DESC | slice:0:100)+'..':(item.DOCUMENT_SUBJECT_DESC)}}</td>
+						<td>{{item.DOCUMENT_CREATE_DATE}}</td>
+						<td>{{item.CREATE_DTS}}</td>
+				</tr>
+		        </tbody>
+		        <tr>
+		        	<td colspan="1">
+		               
+		                  &nbsp;
+		            </td>
+		            <td colspan="3" style="text-align:'right'">
+		               
+		                  <mfBootstrapPaginator></mfBootstrapPaginator>
+		            </td>
+		        </tr>
+		    </table>
+			-->
+	</div>				
+	</div>

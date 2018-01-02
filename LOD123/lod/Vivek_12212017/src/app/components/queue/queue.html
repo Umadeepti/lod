@@ -1,0 +1,86 @@
+
+<div class="row table-settings">
+    <div class="col-sm-6">
+	    <div class="dataTables_length" id="paltasks_length">
+		    <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage">
+		        <option [ngValue]="10">10</option>
+		        <option [ngValue]="25">25</option>
+		        <option [ngValue]="50">50</option>
+		        <option [ngValue]="100">100</option>
+		    </select> Entries</label>
+	    </div>
+    </div>
+    <div class="col-sm-6 text-right">
+	    <label class="label-control">
+	    	Search:
+	    <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery" />
+	    </label>
+    </div>
+ </div>
+        <div class="panel panel-default">
+            <table class="table table-striped" [mfData]="data | queueFilter : filterQuery" #mf="mfDataTable"
+                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                <thead>
+                <tr>
+                
+               
+                     <th >
+                        <mfDefaultSorter by="batch_id">Batch ID</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter by="batch_id">Batch Name</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter by="document_ct">Documents</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter [by]="0">Status</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter [by]="0">Pages</mfDefaultSorter>
+                    </th>
+                 
+                    <th >
+                        <mfDefaultSorter by="0">Capture Source</mfDefaultSorter>
+                    </th>
+                  
+                    <th >
+                        <mfDefaultSorter by="0">Added Date</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter by="0">Notes</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter by="0">Priority</mfDefaultSorter>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of mf.data">
+                    <!--  td>
+                        <button (click)="remove(item)" class="btn btn-danger">x</button>
+                    </td -->
+                    
+                    <td><a (click)="setIndexDetail($event,item)">{{item.batch_id}}</a></td>
+                    <td>Incomming Batch:{{item.batch_id}}</td>
+                     <td>{{item.document_ct}}</td>
+                    <td>OPEN</td>
+                    <td>{{item.pages_ct}}</td>
+                     <td>SB{{item.batch_id}}2017</td>
+                     <td>{{item.document_intake_datetime}}</td>
+                     <td>{{item.last_updated_dts}}</td>
+                     <td> </td>
+                     <td>1</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5">
+                       <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+                          <mfBootstrapPaginator></mfBootstrapPaginator>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+ 

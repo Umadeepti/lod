@@ -1,0 +1,40 @@
+<!-- 
+<p>test to display the page error : </p>
+<div class="col-lg-12 main">
+-->
+<div class="main-content row">
+  
+    <ul class="nav nav-tabs appmenu">
+  
+  <!--  <li class="active" data-ng-class="{active:isActive('/SQIncBatch')}"> 
+    ** Disable for issue OWD-553
+   <li [ngClass]="{active: selectedTab==='SQIncBatch'}" (click)="selectedTab='SQIncBatch'">
+  	<a style="cursor: pointer;" routerLink="./SQIncBatch" routerLinkActive="active">Incoming Batch</a>
+  </li> 
+  -->
+  <li  [ngClass]="{active: selectedTab==='SQIncDoc'}" (click)="selectedTab='SQIncDoc'" routerLinkActive="active">
+  	<a style="cursor: pointer;" routerLink="/queue/SQIncDoc" >Incoming Mail</a>
+  </li>
+
+   <li [ngClass]="{active: selectedTab==='SQCaseCreate'}" (click)="selectedTab='SQCaseCreate'" routerLinkActive="active">
+  	<a style="cursor: pointer;" routerLink="/queue/SQCaseCreate" >Case Create</a>
+  </li> 
+  
+    <li [ngClass]="{active: selectedTab==='SQDistOff'}" (click)="selectedTab='SQDistOff'" routerLinkActive="active">
+  	<a style="cursor: pointer;" routerLink="/queue/SQDistOff">District Office</a>
+  </li> 
+
+    <li [ngClass]="{active: selectedTab==='SQNatOff'}" (click)="selectedTab='SQNatOff'" routerLinkActive="active">
+  	<a style="cursor: pointer;" routerLink="/queue/SQNatOff" routerLinkActive="active">Second Level</a>
+  </li>
+    
+</ul>
+
+  <div class="col-md-12">
+    <router-outlet></router-outlet>
+  </div>
+ </div>
+   
+  <!-- 
+<h4>{{ errorMessage }}</h4>
+-->

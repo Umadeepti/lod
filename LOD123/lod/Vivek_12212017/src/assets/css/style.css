@@ -1,0 +1,571 @@
+/*
+dark blue 	#0b2a5b;   #032d49
+mid blue	#0872ba;
+light blue	#b9cde5;  #b3defc
+body text	#333;
+reverse text	#f2f2f2;
+*/
+
+body {
+  font-family: Roboto, "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+.row .row {
+  margin: 0;
+}
+
+/* sets a max-width to fit a 1280px-wide display */
+.width-cap {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 140rem;
+}
+
+#mainwrapper {
+  background: #fff;
+  margin: 0.75rem auto 0;
+  padding: 0;
+  position: relative;
+  z-index: 1500;
+}
+
+
+.ui-draggable, .ui-droppable {
+  background-position: top;
+}
+
+/* header */
+
+.navbar-brand {
+  height: auto;
+}
+
+#navbartop, #doltitleclick {
+  background: #0872ba;
+  border: none;
+  color: #f2f2f2;
+}
+
+#navbartop input {
+  color: #5c5c5c;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+#doltitleclick {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0.5rem 1.5rem;
+}
+
+#dollogout {
+  margin-right: 2rem;
+  margin-top: 1rem;
+}
+
+#dollogout .profile-avatar {
+  background-color:#5c5c5c;
+  max-height:35px
+}
+
+#dollogout > b {
+  display: none;
+}
+
+#dolimg {
+  height: 48px;
+  margin-left: 0.25rem;
+  width: auto;
+}
+
+.navbar-collapse .case {
+  border: 1px solid #e00;
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  padding: 1rem 0;
+}
+
+.navbar-collapse .case strong {
+  display: block;
+}
+
+.navbar-form .form-group {
+  margin-left: 24rem;
+  margin-top: 1rem;
+}
+
+.navbar-form input.form-control {
+  height: auto;
+  max-width: 14rem;
+}
+
+.navbar-form input.case-lastname {
+  max-width: 15rem;
+}
+
+
+/* main navigation styles
+ *
+ * Styling for top tabs and submenu
+ *
+ */
+
+
+.navbar {
+  min-height: 48px;
+}
+.site-navigation {
+  background-color: #eee;
+  border: none;
+  font-size: 1.4rem;
+  padding-bottom: 0.25rem;
+}
+
+.site-navigation>li {
+  padding: .25rem 2rem;
+  text-transform: uppercase;
+}
+.site-navigation>li>a {
+  background: #eee;
+  padding: 0.25rem;
+}
+
+.site-navigation>li>a, .site-navigation>li>a:focus, .site-navigation>li>a:hover,
+.site-navigation>li.active>a, .site-navigation>li.active>a:focus, .site-navigation>li.active>a:hover {
+  background: #eee;
+  border: none;
+  color: #032d49;
+}
+
+.site-navigation>li>a:hover, .site-navigation>li>a:focus,.site-navigation>li.active>a, .site-navigation>li.active>a:focus,
+.site-navigation>li.active>a:hover, .site-navigation>li>a.active {
+  border-bottom: 0.25rem solid #032d49;
+  color: #032d49;
+}
+.nav-tabs.submenu {
+  background: #eee;
+  border-radius: 0;
+  box-shadow: 0 0.3rem 0.3rem rgba(36,26,51,0.15);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  padding-bottom: 0.25rem;
+  padding-left: 2rem;
+  text-align: left;
+}
+
+.nav-tabs.submenu >li, .nav-tabs.submenu >li a {
+  background: #eee;
+  border-bottom: none;
+  display: inline-block;
+  letter-spacing: 0.015em;
+  text-transform: none;
+}
+.nav-tabs.submenu >li {
+  padding: 0.25rem 0;
+}
+.nav-tabs.submenu >li:first-child {
+  padding-left: 0;
+}	
+
+.nav-tabs.submenu >li > a {
+  border-left: 1px solid #ccc;
+  color: #555;
+  padding: 0 1.5rem;
+}
+
+.nav-tabs.submenu >li:first-child > a {
+  border-left: none;
+  padding-left: 0;
+}
+
+.nav-tabs.submenu>li>a:hover, .nav-tabs.submenu>li>a:focus,.nav-tabs.submenu>li.active>a, 
+.nav-tabs.submenu>li.active>a:focus, .nav-tabs.submenu>li.active>a:hover {
+  background: transparent;
+  color: #032d49;
+  font-weight: bold;
+  letter-spacing: -0.015em;
+}
+
+
+/* button overrides */
+.btn-primary {
+  background-color: #032d49;
+}
+
+button, .btn {
+  max-width: 18rem;
+  padding: 0.25rem .75rem;
+  text-transform: uppercase;
+}
+
+
+/* main content */
+.main-content {
+  background: #fff;
+  border: 1px solid #ccc;
+  margin: 0.5rem 1rem;
+  overflow: auto;
+}
+
+.main-contemt .main-content {
+  border: none;
+  margin: none;
+}
+
+.nav-tabs.appmenu {
+  background: #ccc;
+  padding-top: 0.25rem;
+}
+
+.nav-tabs.appmenu>li {
+  background: #f2f2f2;
+  border-radius: 4px 4px 0 0;
+  margin: 0.25rem 0.25rem -1px;
+}
+
+.nav-tabs.appmenu>li>a {
+  margin-right: 0;
+  padding: 0.25rem 1rem;
+}
+
+.nav-tabs.appmenu>li.active>a, .nav-tabs.appmenu>li.active>a:focus, .nav-tabs.appmenu>li.active>a:hover, .nav-tabs.appmenu>li.active>a:active {
+  background: #032d49;
+  border-color: #032d49;
+}
+
+
+/* modal dialogs and alerts */
+
+.modal-dialog .modal-header {
+  background: #b3defc;
+  color: #333;
+}
+
+.modal-title {
+  text-align: center;
+  text-transform: uppercase;
+}
+.modal-title div {
+  text-transform: none;
+}
+
+.modal-dialog textarea {
+  width: 90%;
+}
+
+.modal-footer {
+  padding-bottom: 1rem;
+}
+
+.modal-footer.text-center {
+  text-align: center;
+}
+
+.modal.modal-danger .modal-header {
+  background-color: #f2dede;
+  color: #a94442;
+}
+.modal.modal-danger .modal-content {
+  border-color: #a94442;
+}
+
+.modal table.table-striped tr, .alert table.table-striped tr {
+  background: #fff;
+  color: #333;
+}
+
+ .modal .table-striped>tbody>tr:nth-of-type(odd),
+.alert .table-striped>tbody>tr:nth-of-type(odd) {
+  background: #f9f9f9;
+}
+
+
+/* DataTables styles
+ *
+ * Styling for tables formatted with the jQuery DataTables plugin or imitating them
+ *
+ * Applies to any DataTable
+ */
+.datatables thead tr {
+	background: #eee;	
+}
+
+.row .table-settings.row,
+.table-settings {
+  margin-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.25rem;
+}
+
+.table-settings label {
+  font-weight: normal;
+}
+
+.table>thead>tr>th {
+  border-bottom: 0.25rem solid #032d49;
+}
+
+/* portlet styles
+ *
+ * Styling for sidebar portlets
+ *
+ * Each portlet is contained within a div with the class "portlet"
+ */
+.portlet {
+	border: 1px solid #ccc;
+	margin-top: 1em;
+}
+ 
+ 
+.portlet .portlet-header {
+  background: #b3defc;
+  color: #333;
+  padding: 0.5rem;
+}
+
+
+h3.portlet-title {	
+	background: #b3defc;
+	color: #333;
+	font-size: 1.6rem; 
+	margin-top: 0;
+	padding: 0.5em; 
+	text-align: center;
+	text-transform: uppercase;
+}
+
+/* title for the portlet, indicating the portlet's contents/function */
+.portlet .portlet-title {	
+  font-size: 1.6rem; 
+  margin: 0 auto;
+  padding: 0.5em; 
+  text-align: center;
+}
+
+.portlet-content {	
+    padding: 1.5rem;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-width: .2rem;
+}
+
+.portlet-content input[type=radio] {
+	margin-right: 0.5rem;
+}
+
+/* navigation portlet */
+
+/* within a navigation portlet, the name of the OWCS section, e.g. PAL, payments, appeals, etc. */
+.navigation .function-name {
+  font-size: 1.4rem;
+  margin: 0.25rem auto;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* within a navigation portlet, the name of the OWCS function or application */
+.navigation .application-name {
+  font-size: 1.3rem;
+  margin: 0.5rem auto 0.25rem;
+  text-align: center;
+  text-transform: none;
+}
+
+
+/* document search and selection table */
+.docsearch table tbody tr.active td {
+	background: #ddd;	
+}
+
+.portlet.docsearch table td, .portlet table th {
+   font-size: 1.2rem;
+}
+
+.portlet.docsearch,
+ .portlet.docsearch .dataTables_wrapper > .row:first-child,
+ .portlet.docsearch .dataTables_wrapper > .row:last-child {
+	background: #b3defc;
+	color: #333;
+	margin: 0;
+	padding: 0.5rem 0.25rem;
+ }
+ .portlet.docsearch .dataTables_length,
+ .portlet.docsearch .dataTables_filter,
+ .portlet.docsearch .dataTables_info,
+ .portlet.docsearch .dataTables_paginate {
+	padding: 8px 0 0;
+  }
+
+ .portlet.docsearch select,
+ .portlet.docsearch input {
+	font-size: 10px;
+	height: 24px;
+	line-height: 24px;
+    padding: 0;
+ }
+ 
+ .portlet.docsearch label {
+   font-size: 10px;
+   font-weight: normal;
+ }
+ 
+ .portlet.docsearch select {
+	width: 3.5em;
+ }
+ 
+  .portlet.docsearch input {
+ 	max-width: 60%;
+ 	padding-left: 4px;
+ }
+ 
+.portlet.docsearch table {
+	background: #fff;
+	color: #333;
+	margin-left: -0.25rem;
+	width: 100%;
+}
+
+ .portlet.docsearch table thead th {
+ 	text-transform: uppercase;
+ 	white-space: nowrap;
+ }
+ 
+.form-Nav {
+	display: block;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #032d49;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  color: #555;
+  font-size: 14px;
+  height: 34px;
+  line-height: 1.42857143;
+  padding: 6px 12px;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;	
+  width: 100%;
+}
+
+textarea.form-Nav {
+  height: inherit;
+}
+
+fieldset.form-field-indent .form-group .col-form-label {
+  padding-left: 3rem;
+}
+
+.form-group.has-icon.icon-right .form-Nav {
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+.form-group.has-icon.icon-right .input-group-addon {
+  border: 1px solid #032d49;
+  border-left: 1px solid #ccc;
+  border-radius: 0 4px 4px 0;
+  top: 0;
+}
+.form-group.has-icon.icon-left .form-Nav {
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+.form-group.has-icon.icon-left .input-group-addon {
+  border: 1px solid #032d49;
+  border-right: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  top: 0;
+}
+
+.form-group label {
+  font-weight: 400;
+}
+
+.row .row.form-group {
+  margin-bottom: 1rem;
+}
+.form-group textarea {
+  width: 100%;
+}
+
+.row.checkbox {
+  margin-bottom: 1rem;
+}
+
+/* typeahead / autocomplete options */
+.suggestions {
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+  max-height: 56rem;
+  width: 56rem;
+  overflow: hidden;
+  overflow-y: auto;
+  padding: 0.5rem;
+  position: absolute;
+  resize: both;
+  right: -1rem;
+  top: 1.5rem;
+  z-index: 10;
+}
+
+
+/* input required */
+label .input-required {
+  background: transparent;
+  color: #e00;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 0;
+  vertical-align: sub;
+}
+
+
+/* case detail */
+
+.panel.case-details {
+  background: #dff0d8;
+  border-radius: 1rem;
+  margin: 0.75rem auto;
+  max-width: 120rem;
+}
+
+.panel.case-details .panel-body {
+  padding: 1rem;
+}  
+
+.panel.case-details > .row > div {
+  padding-bottom: 1rem;
+}
+
+.case-details .detail-label {
+  font-weight: 500;
+}
+
+.case-details .detail-value {
+  font-weight: normal;
+}
+
+.modal .panel.case-details > .row > div {
+  padding-bottom: 1.5rem;
+}
+
+.modal .panel.case-details  {
+  margin-bottom: 2rem;
+}
+
+
+/* PDF Style Sheets */
+.ng2-pdf-viewer-container *{box-sizing: border-box; overflow: hidden}
+.ng2-pdf-viewer-container .wrapper {margin: 0 auto; width: 960px; }
+.ng2-pdf-viewer-container .pdf-controls { width: 100%; display: block; background: #eee; padding: 1em;}
+.ng2-pdf-viewer-container .rotate0 {-webkit-transform: rotate(0deg); transform: rotate(0deg); }
+.ng2-pdf-viewer-container .rotate90 {-webkit-transform: rotate(90deg); transform: rotate(90deg); }
+.ng2-pdf-viewer-container .rotate180 {-webkit-transform: rotate(180deg); transform: rotate(180deg); }
+.ng2-pdf-viewer-container .rotate270 {-webkit-transform: rotate(270deg); transform: rotate(270deg); }
+.ng2-pdf-viewer-container .fixed { position: fixed; top: 0; left: calc(50% - 480px); z-index: 100; width: 100%; padding: 1em; background: rgba(238, 238, 238,.9); width: 960px;
+}

@@ -1,0 +1,892 @@
+<form novalidate (ngSubmit)="onSubmit(caseCreateDataForm)" [formGroup]="caseCreateDataForm">
+    
+    <div class="form-group row has-icon icon-right">
+        <label for="dateReceived" class="col-xs-5 col-form-label col-form-label-sm">Received Date<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="dateReceived" name ="dateReceived" formControlName="dateReceived" />
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </span>
+                </div>
+        </div>
+    </div>
+    <div class="form-group row has-icon icon-left">
+        <label for="ssnData" class="col-xs-5 col-form-label col-form-label-sm">1a. SSN</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="fa fa-list-ol" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="ssnData" (blur)="casaValidation($event)" placeholder="999999999" name="ssnData" formControlName="SSN" /> 
+            </div>
+        </div>
+    </div>
+    <div class="form-group row has-icon icon-right">
+        <label for="dateOfInj-date-input" class="col-xs-5 col-form-label col-form-label-sm">11. Date of Injury<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+                <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="dateOfInj-date-input" name ="dateOfInjury" formControlName="dateOfInjury" />
+                <span class="input-group-addon">
+                    <span> <i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="deceasedFirstName" class="col-xs-5 col-form-label col-form-label-sm">1. Deceased Employee Name: First, MI</label>
+        <div class="col-xs-5">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="deceasedFirstName" placeholder="John" name="deceasedFirstName" formControlName="deceasedFirstName"/>								
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="input-group">
+                <input type="text" class="form-Nav form-Nav-sm" id="deceasedMiddleName" name="deceasedMiddleName" formControlName="deceasedMiddleName"/>
+            </div>
+        </div>
+    </div>
+
+    <fieldset class="form-field-indent">
+        <div class="form-group row has-icon icon-left">
+            <label for="deceasedLastName" class="col-xs-5 col-form-label col-form-label-sm">Last<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="deceasedLastName" placeholder="Doe" name="deceasedLastName" formControlName="deceasedLastName"/>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+                                                        
+    <div class="form-group row has-icon icon-left">
+        <label for="daddress1-text-input" class="col-xs-5 col-form-label col-form-label-sm">2. Address<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="daddress1-text-input" placeholder="Line 1" name="deceasedAdrLine1" formControlName="deceasedAdrLine1" />
+            </div>								
+        </div>
+    </div>
+    <fieldset class="form-field-indent" >
+        
+        <div class="form-group row has-icon icon-left">
+            <label for="daddress2-text-input" class="col-xs-5 col-form-label col-form-label-sm"></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="daddress2-text-input" placeholder="Line 2" name="deceasedAdrLine2" formControlName="deceasedAdrLine2"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row ">
+            <label for="dAddressCity" class="col-xs-5 col-form-label col-form-label-sm">City<span class="input-required">*</span>, State<span class="input-required">*</span></label>
+            <div class="col-xs-4">
+                    <input type="text" class="form-Nav form-Nav-sm" id="dAddressCity" name="deceasedAdrCity" formControlName="deceasedAdrCity" />
+            </div>
+            <div class="col-xs-3">
+                <select class="form-Nav" id="dAddressStSel" name="deceasedAdrState" formControlName="deceasedAdrState" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let usStateLNames of USStateList" value= {{usStateLNames.text}}>{{usStateLNames.description}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row ">
+            <label for="dAddressStZip" class="col-xs-5 col-form-label col-form-label-sm">Zip<span class="input-required">*</span>, Country<span class="input-required">*</span></label>
+            <div class="col-xs-3">
+                <input type="text" class="form-Nav form-Nav-sm" id="dAddressStZip" name="deceasedAdrZip" placeholder="99999-9999" formControlName="deceasedAdrZip"/>
+                    <!--  
+                    <div class="input-group"> 
+                        <span class="input-group-addon">
+                        
+                            <span> <i class="fa fa-address-card" aria-hidden="true"></i></span>
+                        </span>
+                            
+                    </div>
+                        -->
+                </div>
+            <div class="col-xs-4">
+                <select class="form-Nav" id="dAddressCountry" name="deceasedAdrCtry" formControlName="deceasedAdrCtry">
+                        <option value="">Select</option>
+                        <option *ngFor=" let CountryType of CountryList" value= {{CountryType.text}}>{{CountryType.description}}</option>
+                    </select>
+            </div>
+        </div>
+    </fieldset>
+    
+    <div class="form-group row">
+        <label for="categorySel" class="col-xs-5 col-form-label col-form-label-sm">3. Employer<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <input id="employer1" name="employer1" type="text"  placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="Employer1" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredEmpList.length > 0">
+                    <option *ngFor=" let empParty of filteredEmpList" value= {{empParty.party_name}} (click)="select(empParty , searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestion-address" *ngIf="caseCreateData.EmpPartyId1 > 0">
+                <label for="emp1Address">{{caseCreateData.EmpPartyAdr1}}</label>
+            </div>			  
+        </div>
+        
+    </div>
+
+    <!--  div class="form-group row">
+        <label for="categorySel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Employer</label>
+        <div class="col-lg-8 col-xs-7">
+            <input id="employer2" name="employer2" type="text"  placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="Employer2 (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredEmp2List.length > 0">
+                    <option *ngFor=" let empParty of filteredEmp2List" value= {{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="caseCreateData.EmpPartyId2 > 0">
+                <label for="emp2Address">{{caseCreateData.EmpPartyAdr2}}</label>
+                </div>		  
+        </div>
+    </div -->
+    
+    <div class="form-group row">
+        <label for="case-Carrier_num" class="col-xs-5 col-form-label col-form-label-sm">Carrier&#8217;s #</label>
+        <div class="col-xs-7">
+            <input type="text" class="form-Nav form-Nav-sm" id="case-Carrier_num"  name ="carrier" formControlName="carrier"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="form-group row has-icon icon-left">
+            <label for="placeDeathCity" class="col-xs-5 col-form-label col-form-label-sm">8. Place of Death: City</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-Nav form-Nav-sm" id="placeDeathCity" name="placeDeathCity" formControlName="placeDeathCity"/>
+            </div>
+        </div>
+    </div>
+    <fieldset class="form-field-indent" >
+        <div class="form-group row has-icon icon-left">
+            <label for="placeDeathSt" class="col-xs-5 col-form-label col-form-label-sm">State/Prov (US/CAN)</label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                    </span>
+                    <select class="form-Nav" id="placeDeathSt" name="placeDeathSt" formControlName="placeDeathSt">
+                        <option value="">Select</option>
+                        <option *ngFor=" let CAProvinceListVal of USStateList" value= {{CAProvinceListVal.text}}>{{CAProvinceListVal.description}}</option>
+                    </select>
+                </div>					
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="placeDeathCtry" class="col-xs-5 col-form-label col-form-label-sm">Country<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <select class="form-Nav" id="placeDeathCtry" name="placeDeathCtry" formControlName="placeDeathCtry">
+                    <option>Select</option>
+                    <option>US</option>
+                </select>
+            </div>							
+        </div>
+    </fieldset>
+
+    <div class="form-group row has-icon icon-right">
+        <label for="dateOfDeath" class="col-xs-5 col-form-label col-form-label-sm">9. Date of Death</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="dateOfDeath" name="dateOfDeath" formControlName="dateOfDeath"/>
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+        </div>					
+    </div>
+
+    <div class="form-group row">
+        <div class="form-group row has-icon icon-left">
+            <label for="placeInj" class="col-xs-5 col-form-label col-form-label-sm">10. Place of Injury: State/Prov (US/CAN)</label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                    </span>
+                    <select class="form-Nav" id="place" name="stateProvidence" formControlName="stateProvidence">
+                        <option value="">Select</option>
+                        <option *ngFor=" let CAProvinceListVal of USStateList" value= {{CAProvinceListVal.text}}>{{CAProvinceListVal.description}}</option>
+                    </select>
+                </div>					
+            </div>
+        </div>
+    </div>
+
+    <fieldset class="form-field-indent" >
+        <div class="form-group row">
+            <label for="plcInj-text-input" class="col-xs-5 col-form-label col-form-label-sm">Country<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <select class="form-Nav" id="placeOfInjuryCtry" name="placeOfInjuryCtry" formControlName="placeOfInjuryCtry">
+                    <option>Select</option>
+                    <option>US</option>
+                </select>
+            </div>							
+        </div>
+    </fieldset>
+
+    <fieldset class="form-field-indent">
+        <div class="form-group row">
+            <label for="case_COfInjury" class="col-xs-5 col-form-label col-form-label-sm">12. Cause of Injury</label>
+            <div class="col-xs-7">
+                <select class="form-Nav" id="case_COfInjury" name="caseOfInjury" formControlName="caseOfInjury">
+                    <option>Select</option>
+                    <option></option>
+                    <option></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row has-icon icon-left">
+            <label for="NatureInj-text-input" class="col-xs-5 col-form-label col-form-label-sm">Nature of Injury<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                    </span>
+                    <select class="form-Nav" id="natureOfInjurySel" name ="natureOfInjury" formControlName="natureOfInjury">
+                        <option value="">Select</option>
+                        <option *ngFor=" let NatureOfInjury of NatureOfInjuryList" value= {{NatureOfInjury.Text}}>{{NatureOfInjury.Description}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row has-icon icon-left">
+            <label for="PartOfBD-text-input" class="col-xs-5 col-form-label col-form-label-sm">Part of Body<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                    </span>
+                    <select class="form-Nav" id="PartOfBD-text-input" name ="partOfBody" formControlName="partOfBody">
+                        <option value="">Select</option>
+                        <option *ngFor=" let PartOfBody of PartOfBodyList" value= {{PartOfBody.Text}}>{{PartOfBody.Description}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="widowFirstName" class="col-xs-5 col-form-label col-form-label-sm">14a. Widow/er Name: First, MI</label>
+        <div class="col-xs-5">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="widowFirstName" placeholder="John" name="widowFirstName" formControlName="widowFirstName"/>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="input-group">
+                <input type="text" class="form-Nav form-Nav-sm" id="widowMidName" name="widowMidName" formControlName="widowMidName"/>
+            </div>
+        </div>
+    </div>
+    <fieldset class="form-field-indent">
+        <div class="form-group row has-icon icon-left">
+            <label for="widowLastName" class="col-xs-5 col-form-label col-form-label-sm">Last<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="widowLastName" placeholder="Doe" name="widowLastName" formControlName="widowLastName"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row has-icon icon-left">
+            <label for="waddress1-text-input" class="col-xs-5 col-form-label col-form-label-sm">Address<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="waddress1-text-input" placeholder="Line 1" name="widowAdrLine1" formControlName="widowAdrLine1" />
+                </div>								
+            </div>
+        </div>
+
+        <div class="form-group row has-icon icon-left">
+            <label for="waddress2-text-input" class="col-xs-5 col-form-label col-form-label-sm"></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="waddress2-text-input" placeholder="Line 2" name="widowAdrLine2" formControlName="widowAdrLine2"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="wAddressCity" class="col-xs-5 col-form-label col-form-label-sm">City<span class="input-required">*</span>, State<span class="input-required">*</span></label>
+            <div class="col-xs-4">
+                <input type="text" class="form-Nav form-Nav-sm" id="wAddressCity" name="widowAdrCity" formControlName="widowAdrCity" />
+            </div>
+            <div class="col-xs-3">
+                <select class="form-Nav" id="wAddressStSel" name="widowAdrSt" formControlName="widowAdrSt" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let usStateLNames of USStateList" value= {{usStateLNames.text}}>{{usStateLNames.description}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="wAddressStZip" class="col-xs-5 col-form-label col-form-label-sm">Zip<span class="input-required">*</span>, Country<span class="input-required">*</span></label>
+            <div class="col-xs-3">
+                    <input type="text" class="form-Nav form-Nav-sm" id="wAddressStZip" name="widowAdrZip" placeholder="99999-9999" formControlName="widowAdrZip"/>
+                </div>
+            <div class="col-xs-4">
+                    <select class="form-Nav" id="wAddressCountry" name="widowAdrCountry" formControlName="widowAdrCountry" >
+                            <option value="">Select</option>
+                            <option *ngFor=" let CountryType of CountryList" value= {{CountryType.text}}>{{CountryType.description}}</option>
+                        </select>
+            </div>
+        </div>
+
+    </fieldset>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="wssnData" class="col-xs-5 col-form-label col-form-label-sm">14b. SSN</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="fa fa-list-ol" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="wssnData" (blur)="casaValidation($event)" placeholder="999999999" name="wssnData" formControlName="widowSSN" /> 
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row has-icon icon-right">
+        <label for="wDateOfBirth" class="col-xs-5 col-form-label col-form-label-sm">14c. Date of Birth</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="wDateOfBirth" name="wDateOfBirth" formControlName="widowDateOfBirth"/>
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="wNationality" class="col-xs-5 col-form-label col-form-label-sm">14d. Nationality</label>
+        <div class="col-xs-7">
+            <input type="text" class="form-Nav form-Nav-sm" id="wNationality" name="wNationality" formControlName="widowNationality"/>
+        </div>
+    </div>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="wPhone" class="col-xs-5 col-form-label col-form-label-sm">14e. Phone</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="wPhone" placeholder="999-999-9999" name="wPhone" formControlName="widowPhone"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="wSignatureDate" class="col-xs-5 col-form-label col-form-label-sm">14g. Signature Date</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="wSignatureDate" name="wSignatureDate" formControlName="widowSignatureDate"/>
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="childFirstName" class="col-xs-5 col-form-label col-form-label-sm">15a. Child Name: First, MI</label>
+        <div class="col-xs-5">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="childFirstName" placeholder="John" name="childFirstName" formControlName="childFirstName"/>
+            </div>
+            
+        </div>
+        <div class="col-xs-2">
+            <div class="input-group">
+                <input type="text" class="form-Nav form-Nav-sm" id="childMidName" name="childMidName" formControlName="childMidName"/>
+            </div>
+        </div>
+    </div>
+
+    <fieldset class="form-field-indent">
+        <div class="form-group row has-icon icon-left">
+            <label for="childLastName" class="col-xs-5 col-form-label col-form-label-sm">Last<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="childLastName" placeholder="Doe" name="childLastName" formControlName="childLastName"/>
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-group row has-icon icon-left">
+            <label for="childAdrLine1" class="col-xs-5 col-form-label col-form-label-sm">Address<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="childAdrLine1" placeholder="Line 1" name="childAdrLine1" formControlName="childAdrLine1" />
+                </div>								
+            </div>
+        </div>
+
+        <div class="form-group row has-icon icon-left">
+            <label for="childAdrLine2" class="col-xs-5 col-form-label col-form-label-sm"></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="childAdrLine2" placeholder="Line 2" name="childAdrLine2" formControlName="childAdrLine2"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label for="childAdrCity" class="col-xs-5 col-form-label col-form-label-sm">City<span class="input-required">*</span>, State<span class="input-required">*</span></label>
+            <div class="col-xs-4">
+                <input type="text" class="form-Nav form-Nav-sm" id="childAdrCity" name="childAdrCity" formControlName="childAdrCity" />
+            </div>
+            <div class="col-xs-3">
+                <select class="form-Nav" id="childAdrStSel" name="childAdrSt" formControlName="childAdrSt" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let usStateLNames of USStateList" value= {{usStateLNames.text}}>{{usStateLNames.description}}</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="childAdrZip" class="col-xs-5 col-form-label col-form-label-sm">Zip<span class="input-required">*</span>, Country<span class="input-required">*</span></label>
+            <div class="col-xs-3">
+                <input type="text" class="form-Nav form-Nav-sm" id="childAdrZip" name="childAdrZip" placeholder="99999-9999" formControlName="childAdrZip"/>
+            </div>
+            <div class="col-xs-4">
+                <select class="form-Nav" id="childAdrCtry" name="childAdrCtry" formControlName="childAdrCtry" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let CountryType of CountryList" value= {{CountryType.text}}>{{CountryType.description}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    
+    <div class="form-group row has-icon icon-left">
+        <label for="childssnData" class="col-xs-5 col-form-label col-form-label-sm">Child SSN</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="fa fa-list-ol" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="childssnData" (blur)="casaValidation($event)" placeholder="999999999" name="childssnData" formControlName="childSSN" /> 
+            </div>
+        </div>
+    </div>						
+    
+    <div class="form-group row has-icon icon-right">
+        <label for="childDateOfBirth" class="col-xs-5 col-form-label col-form-label-sm">15d. Child Date of Birth</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="childDateOfBirth" name="childDateOfBirth" formControlName="childDateOfBirth"/>
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="childNationality" class="col-xs-5 col-form-label col-form-label-sm">15e. Nationality</label>
+        <div class="col-xs-7">
+            <input type="text" class="form-Nav form-Nav-sm" id="childNationality" name="childNationality" formControlName="childNationality"/>
+        </div>
+    </div>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="dependentFirstName" class="col-xs-5 col-form-label col-form-label-sm">16a. Dependent Name: First, MI</label>
+        <div class="col-xs-5">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="dependentFirstName" placeholder="John" name="dependentFirstName" formControlName="dependentFirstName"/>
+            </div>
+            
+        </div>
+        <div class="col-xs-2">
+            <div class="input-group">
+                <input type="text" class="form-Nav form-Nav-sm" id="dependentMidName"  name="dependentMidName" formControlName="dependentMidName"/>
+            </div>
+        </div>
+    </div>
+
+    <fieldset class="form-field-indent">
+        <div class="form-group row has-icon icon-left">
+            <label for="dependentLastName" class="col-xs-5 col-form-label col-form-label-sm">Last<span class="input-required">*</span></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="dependentLastName" placeholder="Doe" name="dependentLastName" formControlName="dependentLastName"/>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+    <div class="form-group row has-icon icon-left">
+        <label for="dependentAdrLine1" class="col-xs-5 col-form-label col-form-label-sm">Address<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="dependentAdrLine1" placeholder="Line 1" name="dependentAdrLine1" formControlName="dependentAdrLine1" />
+            </div>								
+        </div>
+    </div>
+    
+
+    <fieldset class="form-field-indent">
+        <div class="form-group row has-icon icon-left">
+            <label for="dependentAdrLine2" class="col-xs-5 col-form-label col-form-label-sm"></label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="dependentAdrLine2" placeholder="Line 2" name="dependentAdrLine2" formControlName="dependentAdrLine2"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dependentAdrCity" class="col-xs-5 col-form-label col-form-label-sm">City<span class="input-required">*</span>, State<span class="input-required">*</span></label>
+            <div class="col-xs-4">
+                <input type="text" class="form-Nav form-Nav-sm" id="dependentAdrCity" name ="dependentAdrCity" formControlName="dependentAdrCity" />
+            </div>
+            <div class="col-xs-3">
+                <select class="form-Nav" id="dependentAdrSt" name="dependentAdrSt" formControlName="dependentAdrSt" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let usStateLNames of USStateList" value= {{usStateLNames.text}}>{{usStateLNames.description}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="dependentAdrZip" class="col-xs-5 col-form-label col-form-label-sm">Zip<span class="input-required">*</span>, Country<span class="input-required">*</span></label>
+            <div class="col-xs-3">
+                <input type="text" class="form-Nav form-Nav-sm" id="dependentAdrZip" name="dependentAdrZip" placeholder="99999-9999" formControlName="dependentAdrZip"/>
+            </div>
+            <div class="col-xs-4">
+                <select class="form-Nav" id="dependentAddressStZip" name="dependentAdrCtry" formControlName="dependentAdrCtry" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let CountryType of CountryList" value= {{CountryType.text}}>{{CountryType.description}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="dSignatureDate" class="col-xs-5 col-form-label col-form-label-sm">Signature Date</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="dependentSignatureDate" name="dependentSignatureDate" formControlName="dependentSignatureDate"/>
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </span>
+                </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="guardian" class="col-lg-5 col-xs-7 col-form-label col-form-label-sm">Guardian?</label>
+        <div class="col-lg-7 col-xs-5">
+            <select class="form-Nav" id="guardian" name="guardian" formControlName="guardian">
+                <option>Select</option>
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+    </div>
+                                                    
+    <div class="form-group row">
+        <label for="claimantType" class="col-lg-5 col-xs-7 col-form-label col-form-label-sm">16c. Relationship</label>
+        <div class="col-lg-7 col-xs-5">
+            <select class="form-Nav" id="claimantType" name="claimantType" formControlName="claimantType">
+                <option>Select</option>
+                <option>Spouse</option>
+                <option>Child</option>
+                <option>Child - Student</option>
+                <option>Child - Incapable</option>
+                <option>Parent</option>
+                <option>Sibling</option>
+                <option>Grandchild</option>
+                <option>Grandparent</option>
+                <option>Other - enter description</option>
+            </select>
+        </div>
+    </div>
+                                                    
+    <div class="form-group row">
+        <label for="dependentAge" class="col-xs-5 col-form-label col-form-label-sm">16d. Age</label>
+        <div class="col-xs-7">
+            <input type="number" step="1" class="form-Nav form-Nav-sm" id="dependentAge" name="dependentAge" formControlName="dependentAge"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="dependencyType" class="col-lg-5 col-xs-7 col-form-label col-form-label-sm">16e. Dependency Type</label>
+        <div class="col-lg-7 col-xs-5">
+            <select class="form-Nav" id="dependencyType" name="dependencyType" formControlName="dependencyType">
+                <option>Select</option>
+                <option>Wholly</option>
+                <option>Partially</option>
+            </select>
+        </div>
+    </div>
+            
+    <div class="form-group row has-icon icon-left">
+        <label for="claimAct" class="col-xs-5 col-form-label col-form-label-sm" title="I hereby make claim for compensation benefits, monetary and medical, under the">Act<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                        <span><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                </span>
+                <select class="form-Nav" id="claimAct" name="claimAct" formControlName="claimAct">
+                    <option value="">Select</option>
+                    <option value="">LHWCA</option>
+                    <option value="">NAFIA</option>
+                    <option value="">OCSLA</option>
+                    <option value="">DBA</option>
+                    <option value="">Unknown</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="case-Attorney1" class="col-xs-5 col-form-label col-form-label-sm">Attorney</label>
+        <div class="col-xs-7">
+            <input id="attorney1" name="attorney1" type="text" placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="attorney1" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredAtty1List.length > 0">
+                
+                    <option *ngFor=" let empParty of filteredAtty1List" value= {{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="caseCreateData.attPartyId1 > 0">
+                <label for="att1Address">{{caseCreateData.attPartyAdr1}}</label>
+                </div>
+                        
+        </div>
+    </div> 
+    
+    <fieldset class="form-field-indent" >                                                                 
+        <div class="form-group row">
+            <label for="case_Att1_Repr" class="col-xs-5 col-form-label col-form-label-sm">Representing</label>
+            <div class="col-xs-7">
+                <select class="form-Nav" id="case_Att1_Repr"  name="attorney1Repname" formControlName="attorney1Repname">
+                    <option>Select</option>
+                    <option>Employer</option>
+                    <option>Carrier</option>
+                    <option>Claimant</option>
+                </select>
+            </div>
+        </div>    
+    </fieldset>   
+        
+    <div class="row form-group">
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <button class="btn btn-primary btn-block" type="button"  (click)="cancelCaseCreate()">Cancel </button>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+        <button class="btn btn-primary btn-block" type="button" (click)="createCase()">CreateCase </button>
+        </div>
+    </div>			
+                                    
+</form>
+
+<!-- Start remDupCase popup -->
+<div id="remDupCase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document" style="width: 800px;">
+        <div class="modal-content alert-default">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title" id="ModalLabel1">Below are Potential Duplicates </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="dupCase_length">
+                            <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage1" name="">
+                                <option [value]="5">5</option>
+                                <option [value]="10">10</option>
+                                <option [value]="20">20</option>
+                                <option [value]="100">100</option>
+                            </select> Entries</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label class="label-control">
+                            Search:
+                        <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery1" />
+                        </label>
+                    </div>    
+                </div>
+                <div class="panel panel-default">
+                    <table class="table table-striped" [mfData]="data1 | dataFilter : filterQuery1" #mf1="mfDataTable"
+                                [mfRowsOnPage]="rowsOnPage1" [(mfSortBy)]="sortBy1" [(mfSortOrder)]="sortOrder1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <mfDefaultSorter by="ssn">SSN</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="doi">DOI</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="dob">DOB</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter [by]="lastName">Last Name</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter [by]="firstName">First Name</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter [by]="partOfBody">Part of Body</mfDefaultSorter>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item1 of mf1.data; let i = index" (click)="setDupCaseRow(item1)" [class.active]="i == selectedRow1">
+                                <!--  td>
+                                    <button (click)="remove(item)" class="btn btn-danger">x</button>
+                                </td -->
+                                <td>{{item1.ssn}}</td>
+                                <td>{{item1.doi}}</td>
+                                <td>{{item1.dob}}</td>
+                                <td>{{item1.lastName}}</td>
+                                <td>{{item1.firstName}}</td>
+                                <td>{{item1.partOfBody}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+                                    &nbsp;
+                                </td>
+                                <td colspan="4">
+                                    <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+                                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End of remDupCase popup -->
+      
+    <!-- Start remDupCaseDetail popup -->
+    <div id="remDupCaseDetail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+        <div class="modal-dialog" role="document" style="width: 800px;">
+          <div class="modal-content alert-default">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                 <h4 class="modal-title" id="ModalLabel2">Please confirm this is a Duplicate Case</h4>
+               </div>
+               <div class="modal-body">
+                 <div class="panel panel-default case-details" *ngIf="dupCaseDetail">
+                      <div class="panel-body">
+                          <div class="row">
+    
+                            <div class="col-sm-6 col-md-4">                           
+                                <div><strong class="detail-label">Case:</strong> <span class="detail-value">{{dupCaseDetail.caseNumber}}</span></div>
+                                <div><strong class="detail-label">Date of Injury:</strong> <span class="detail-value">{{dupCaseDetail.doi}}</span></div>
+                                <div><strong class="detail-label">Place of Injury:</strong> <span class="detail-value">{{dupCaseDetail.placeOfInjuryState}} {{dupCaseDetail.placeOfInjuryCountry}}</span></div>
+                            </div>  
+                            
+                            <div class="col-sm-6 col-md-4">
+                                 <div><strong class="detail-label">Status:</strong> <span class="detail-value">{{dupCaseDetail.caseStatusDesc}}</span></div>
+                                 <div><strong class="detail-label">Case Type:</strong> <span class="detail-value">{{dupCaseDetail.caseType}}</span></div>
+                              <div><strong class="detail-label">Extent of Injury:</strong> <span class="detail-value">{{dupCaseDetail.extentOfInjury}}</span></div>
+                            </div>
+    
+                            <div class="col-sm-6 col-md-4">
+                              <div><strong class="detail-label">RCE:</strong> <span class="detail-value">{{dupCaseDetail.claimsExaminerName}}</span></div>
+                              <div><strong class="detail-label">Nature of Injury:</strong> <span class="detail-value">{{dupCaseDetail.natureOfInjury}}</span></div>
+                              <div><strong class="detail-label">Part of Body:</strong> <span class="detail-value">{{dupCaseDetail.bodyPartInjury}} {{dupCaseDetail.bodyPartOrientation}}</span></div>
+                            </div> 
+                         </div>
+                         
+                          <div class="row">
+                            <div class="col-sm-6 col-md-4"><strong class="detail-label">Injured:</strong> <span class="detail-value">{{dupCaseDetail.lastName}}, {{dupCaseDetail.firstName}}</span></div> 
+                            <div class="col-sm-6 col-md-4"><strong class="detail-label">Address:</strong> <span class="detail-value">{{dupCaseDetail.injuredWorkerAddressStr1}} {{dupCaseDetail.injuredWorkerCity}}</span></div>
+                            <div class="col-sm-6 col-md-4">
+                              <div><strong class="detail-label">Injury Type:</strong> <span class="detail-value">{{dupCaseDetail.injuryType}}</span></div>
+                              <div><strong class="detail-label">SSN:</strong> <span class="detail-value">{{dupCaseDetail.ssn}}</span></div>
+                              <div><strong class="detail-label">DOB:</strong> <span class="detail-value">{{dupCaseDetail.dob}}</span></div>
+                            </div>
+                         </div>
+                         
+                          <div class="row">
+                            <div class="col-sm-6 col-md-4"><strong class="detail-label">Claimant:</strong> <span class="detail-value">{{dupCaseDetail.claimantLastName}}, {{dupCaseDetail.claimantFirstName}}</span></div> 
+                            <div class="col-sm-6 col-md-4"><strong class="detail-label">Address:</strong> <span class="detail-value">{{dupCaseDetail.claimantAddressStr1}} {{dupCaseDetail.claimantCity}}</span></div>
+                            <div class="col-sm-6 col-md-4"><strong class="detail-label">Type:</strong> <span class="detail-value">{{dupCaseDetail.claimantType}} </span></div>
+                         </div>
+                         
+                          <div class="row">                  
+                            <div class="col-sm-6 col-md-4"><strong class="detail-label">Employer:</strong> <span class="detail-value">{{dupCaseDetail.empName}}</span></div> 
+                            <div class="col-sm-6 col-md-4"><strong class="detail-label">Address:</strong> <span class="detail-value">{{dupCaseDetail.empAddressStr1}} {{dupCaseDetail.empCity}}</span></div>
+                        </div>
+                     </div>
+                     
+                     <div class="row">
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" (click)="dupCaseLetter('N')">Confirm Duplicate <div class="help">(no letter)</div></button>                  
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" (click)="dupCaseLetter('Y')">Confirm Duplicate <div class="help">(send letter)</div></button>                  
+                        </div>
+                        <div class="col-md-3">
+                                <button class="btn btn-primary btn-block" (click)="dupCaseBack()">Duplicate Case List <div class="help">(Back)</div></button>
+                        </div>
+                        <div class="col-md-3">
+                                <button class="btn btn-primary btn-block" (click)="dupCaseCancel()">Cancel<div class="help"> </div></button>
+                         </div>
+                         
+                         
+                    </div>
+                </div>
+             </div>
+             
+           </div>
+         </div>
+       </div>
+    <!-- End of remDupCaseDetail popup -->

@@ -1,0 +1,334 @@
+<div class="container-fluid">
+	<!-- <ng-template ngFor let-rec [ngForOf]="batchData" let-i= "index" > -->
+		<div class="row">
+			<div class="row">&nbsp;</div>
+			<div class="col-md-8 col-sm-6">
+			
+				<div class="row" style="text-align: center;">
+					<button type="submit" (click)="goPrevious()"><span>&lt;</span></button>
+					<button type="submit" (click)="goNext()"><span>&gt;</span></button>
+					<button type="submit" (click)="zoomIn()"><span>+</span></button>
+					<button type="submit" (click)="fit()"><span>100%</span></button>
+					<button type="submit" (click)="zoomOut()"><span>-</span></button>
+					<button type="submit" (click)="rotate()"><span>90</span></button>
+					<span>Page: </span><input type="text" placeholder="Page" [(ngModel)]="page">
+				</div>
+				<pdf-viewer [src]="pdfSrc" 
+					[page]="page" 
+					[rotation]="rotation"
+					[original-size]="originalSize"
+					[zoom]="zoom"
+					[show-all]="false" style="display: block;">
+				</pdf-viewer>
+	
+			</div>
+			
+			<div class="col-md-4 col-sm-6">
+				
+				<div class="portlet navigation">
+					<header class="portlet-header">
+						<b data-toggle="collapse" href="#70291516059430">
+							<!--  h2 class="portlet-title">Navigation</h2 -->
+							<h2 class="application-name">Index Document</h2>
+						</b>
+					</header>
+					<div id="70291516059430" class="panel-collapse collapse in">
+					
+						<div class="portlet-content" id="indexDocument">
+					<!--  
+					<form>
+						
+						<div class="form-group row">
+						<label for="docId-text-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Case Number</label>
+						<div class="input-group col-lg-8 col-xs-7">
+						
+								<input type="text" class="form-Nav form-Nav-sm" id="docId-text-input" placeholder="12345ABCDE"/>
+
+						</div>
+						</div>
+						-->
+							<form #caseIndexForm="ngForm" >
+						
+								<div class="form-group row has-icon icon-left">
+									<label for="docId-text-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Case Number<span class="input-required">*</span></label>
+									<div class="col-lg-8 col-xs-7">
+										<div class="input-group"> 
+											<span class="input-group-addon">
+												<!-- <span class=" fa fa-list-alt"></span> -->
+												<span> <i class="fa fa-list-ol" aria-hidden="true"></i></span>
+											</span>
+											<input type="text" class="form-Nav form-Nav-sm " id="caseNumber" 
+															[(ngModel)]="caseIndexData.caseNumber" name="caseNumber" placeholder="LS-99999999"/>
+										</div>
+									</div>
+								</div>
+								<div class="form-group row has-icon icon-left">
+									<label for="claimant-text-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Claimant</label>
+									<div class="col-lg-8 col-xs-7">
+									</div>
+								</div>
+					
+								<div class="form-group row has-icon icon-left">
+									<label for="categorySel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Category</label>
+									<div class="col-lg-8 col-xs-7">
+										<div class="input-group"> 
+											<span class="input-group-addon">
+												<!-- <span class=" fa fa-list-alt"></span> -->
+												<span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+											</span>	
+											<select class="form-Nav" (change)="change($event.target.options)" name="categorySel" id="categorySel" [(ngModel)]="caseIndexData.category">
+												<option value="">Select</option>
+												<option *ngFor=" let reindexCat of categoryList" value= {{reindexCat.Category}}>{{reindexCat.Category}}</option>
+											</select>
+										</div>
+									</div>
+								</div>
+						
+								<div class="form-group row has-icon icon-left">
+									<label for="subjectSel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Subject</label>
+									<div class="col-lg-8 col-xs-7">
+										<div class="input-group"> 
+											<span class="input-group-addon">
+												<!-- <span class=" fa fa-list-alt"></span> -->
+												<span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+											</span>						    
+											<select class="form-Nav" name="subjectSel" id="subjectSel" [(ngModel)]="caseIndexData.subject">
+												<option value="">Select</option>
+												<option *ngFor=" let reindexSub of subjectList" value= {{reindexSub.value}}>{{reindexSub.value}}</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							
+								<div class="form-group row has-icon icon-left">
+									<label for="reviewStatusSel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Review Status</label>
+									<div class="col-lg-8 col-xs-7">
+											
+										<div class="input-group"> 
+											<span class="input-group-addon">
+												<!-- <span class=" fa fa-list-alt"></span> -->
+												<span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+											</span>
+												<select class="form-Nav" name="reviewStatusSel" id="reviewStatusSel" [(ngModel)]="caseIndexData.reviewStatus">
+													<option value="">Select</option>
+													<option *ngFor=" let reindexStat of reindexStatusList" value= {{reindexStat.type}}>{{reindexStat.type}}</option>
+												</select>	
+										</div>					  
+									</div>
+								</div>
+								
+								<div class="form-group row has-icon icon-right">
+									<label for="author-date-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Author Date</label>
+									<div class="col-lg-8 col-xs-7">
+											<div class="input-group"> 
+												<input class="form-Nav" type="date" value="2017-01-01" id="author-date-input" name="authorDate" [(ngModel)]="caseIndexData.authorDate"/> 
+													<span class="input-group-addon">
+														<!-- <span class="glyphicon glyphicon-calendar"></span> -->
+														<span> <i class="fa fa-calendar" aria-hidden="true"></i></span>
+													</span>
+											</div>
+									</div>
+								</div>
+						
+								<div class="form-group row has-icon icon-right">
+									<label for="received-date-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Received Date</label>
+									<div class="col-lg-8 col-xs-7">
+											<div class="input-group"> 
+												<input class="form-Nav" type="date" value="2017-01-01" id="received-date-input" name="receivedDate" [(ngModel)]="caseIndexData.receivedDate"/>
+													<span class="input-group-addon">
+												<!-- <span class="glyphicon glyphicon-calendar"></span> -->
+													<span> <i class="fa fa-calendar" aria-hidden="true"></i></span>
+												</span>
+											</div>
+									</div>
+								</div>
+						
+								<div class="form-group row">
+									<label for="description-text-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Description</label>
+									<div class="col-lg-8 col-xs-7">
+										<textarea id="description-text-input" class="form-Nav" rows="4" cols="20" name="idxDescription" [(ngModel)]="caseIndexData.description"></textarea>
+									</div>
+								</div>
+							
+								<div class="form-group row has-icon icon-right">
+									<label for="postmark-date-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Postmark Date</label>
+									<div class="col-lg-8 col-xs-7">
+											<div class="input-group"> 
+												<input type="date" class="form-Nav form-Nav-sm form-control" value="2017-01-01" 
+													[(ngModel)]="caseIndexData.postmarkDate" id="postmarkDate" name="postmarkDate"/>
+												<span class="input-group-addon">
+													<!-- <span class="glyphicon glyphicon-calendar"></span> -->
+													<span> <i class="fa fa-calendar" aria-hidden="true"></i></span>
+												</span>
+											</div>
+									</div>
+								</div>
+
+								<div class="row checkbox">
+									<div class="col-sm-4 col-sm-offset-4">
+										<label><input type="checkbox" id="Priority" value="Priority" name="Priority" [(ngModel)]="caseIndexData.priorityFlag"/> Priority</label>
+									</div>
+									<div class="col-sm-4">	
+										<label><input type="checkbox" id="Duplicate" value="Duplicate" name="Duplicate" [(ngModel)]="caseIndexData.duplicateFlag"/> Duplicate</label>
+									</div>
+								</div>
+								<div class="row checkbox">
+												<div class="col-sm-4 col-sm-offset-4">
+													<label><input type="checkbox" id="sensitive" value="sensitive" name="sensitive" [(ngModel)]="caseIndexData.sensitiveFlag"/> Sensitive</label>
+												</div>
+								</div>
+								<div class="form-group row has-icon icon-left">
+									<label for="docClassSel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Document Class</label>
+									<div class="col-lg-8 col-xs-7">
+										<div class="input-group"> 
+												<span class="input-group-addon">
+												<!-- <span class=" fa fa-list-alt"></span> -->
+												<span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+												</span>
+													<select class="form-Nav" name="docClassSel" id="docClassSel" [(ngModel)]="caseIndexData.docClass">
+														<option value="">Select</option>
+														<option *ngFor=" let documentClass of documentClassList" value= {{documentClass.Text}}>{{documentClass.Text}}</option>
+												</select>		
+										</div>
+									</div>
+								</div>
+								<br/>
+								<div class="row form-group">
+									<div class="col-md-6">
+										<button class="btn btn-primary btn-block" type="button"  (click)="cancelReIndex()">Cancel </button>		
+									</div>
+									<div class="col-md-6">
+										<button class="btn btn-primary btn-block" type="button"   (click)="updateReIndex()">Submit </button>
+									</div>
+								</div>
+							</form>
+						</div>		
+					</div>
+				</div>
+			</div>
+				
+
+			<div class="col-md-4 col-sm-6">
+				<div class="portlet navigation" >
+						<header class="portlet-header">
+						<b data-toggle="collapse" href="#70291516059432">
+							<!--  h2 class="portlet-title">Navigation</h2 -->
+							<h2 class="application-name">Other Options</h2>
+							</b>
+						</header>
+					<div id="70291516059432" class="panel-collapse collapse">
+						<div class="portlet-content" id="otherOptions">
+							
+							<form>
+								<div class="form-group row">
+								<div class="col-lg-6 col-xs-6" align="left">
+								<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="District_Office"/> District Office Queue</label>
+								</div>
+									<div class="col-lg-6 col-xs-6" align="left">   
+										<select class="form-Nav" id="districtOfficeSel" #districtOfficeSel> <!--   [(ngModel)]="districtOfficeSel" ng-options="districtOffice.type as districtOffice.type for districtOffice  in districtOfficees track by districtOffice.type"> -->
+										<option value="">Select</option>
+										<option value="1">Boston</option>
+										<option value="2">New York</option>
+										<option value="5">Norfolk</option>
+										<option value="6">Jacksonville</option>
+										<option value="7">New Orleans</option>
+										<option value="8">Houston</option>	
+										<option value="13">San Francisco</option>
+										<option value="14">Seattle</option>
+										<option value="18">Long Beach</option>
+									</select>
+									</div>
+								</div>
+								<div class="form-group row">
+								
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="CaseCreate" /> Case Create Queue</label>
+									</div>
+								</div>
+								<!--
+								<div class="form-group row" >
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="Incoming" /> Index Document </label>
+									</div>
+								</div>
+							-->
+							<div class="form-group row">
+								<div class="col-lg-6 col-xs-6" align="left">
+									<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="caseCreateQueue"/> Create Case Now</label>
+								</div>
+							</div>
+
+							<div class="form-group row" *ngIf="currentQueueType !== 'INCOMING' ">
+								<div class="col-lg-6 col-xs-6" align="left">
+									  <label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="Incoming" /> Incoming Mail Queue </label>
+								</div>
+							</div>
+								
+								<div class="form-group row" *ngIf="currentQueueType !== 'SECONDLEVEL' ">
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="SecondLevel"/> Second Level Queue</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-lg-6 col-xs-6" align="left">
+										<label><input type="radio" name="optradio"  [(ngModel)]="radioValue" value="DeleteDocument"  /> Delete Document</label>
+									</div>
+								</div>
+								<div class="form-group row">
+											<label for="description-text-input" class="col-lg-6 col-xs-6 col-form-label col-form-label-sm"> Reason</label>
+										<div class="col-lg-6 col-xs-6" align="center">
+											<textarea name="otherOptionReason" id="otherOptionReason" [(ngModel)]="otherOptionReason"   class="form-Nav" rows="4" cols="30"></textarea>
+										</div>
+								</div>
+								
+								<div class="row form-group">
+									<div class="col-md-6">
+										<button class="btn btn-primary btn-block" type="button"  (click)="cancelReIndex()">Cancel </button>		
+									</div>
+									<div class="col-md-6">
+										<button class="btn btn-primary btn-block" type="button"  (click)="casaNext(districtOfficeSel.value)">Submit</button>		
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div> 
+					<!-- Other Options -->	
+		
+		<!-- Other Options Delete Document Model -->	
+			<div id="deletemodal" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-sm-12">
+									<form>
+										<div class="row form-group">
+													<div class="col-sm-4"> 
+														<!--  <button class="btn btn-primary btn-block" id="dupDeleteNLetter" data-ng-click="deleteDocs(taskID)">CONFIRM DELETE <div>(no letter)</div></button> -->
+														<button class="btn btn-primary btn-block" (click)="DelQueWithOutLetter()">CONFIRM DELETE <div>(no letter)</div></button> 
+													</div>
+													<div class="col-sm-4">
+													<button class="btn btn-primary btn-block" (click)="DelQueWithLetter()">CONFIRM DELETE<div>(send letter)</div></button> 
+														<!--  <button class="btn btn-primary btn-block" id="dupDeleteYLetter" data-ng-click="deleteDocsY(taskID)">CONFIRM DELETE<div>(send letter)</div></button> -->
+													</div>
+													<div class="col-sm-4"> 
+														<!-- <input type="submit" value="CANCEL " class="btn btn-primary btn-block" id="cancelButton"/>-->
+														
+														<button class="btn btn-primary btn-block" (click)="DelWithCancel()">CANCEL<div>(back)</div></button> 
+														
+														
+													</div> 
+												</div>
+									</form>
+								</div>	  
+							</div>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->		
+		</div>
+	<!-- </ng-template> -->
+</div>
+
