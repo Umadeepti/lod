@@ -17,12 +17,12 @@ export class CategorySubjectPair {
 }
 
 @Component({
-    selector: 'ls-form-262',
-    templateUrl: '/owcs/app/components/cases/ls-forms/ls-form-262.component.html',
+    selector: 'ls-form-201',
+    templateUrl: '/owcs/app/components/cases/ls-forms/ls-form-201.component.html',
     styleUrls: ['/owcs/app/components/pal/pal-nav.component.css']
   })
 
-  export class LsForm262Component implements OnInit {
+  export class LsForm201Component implements OnInit {
     
         @Input() selectedForm: number;
         @Input() caseDocIntakeId: string;
@@ -30,6 +30,7 @@ export class CategorySubjectPair {
         @Output() caseCreateEvent: EventEmitter<any> = new EventEmitter();
         @Output() dupCaseLetterEvent: EventEmitter<any> = new EventEmitter();
         @Output() cancelCaseEvent: EventEmitter<any> = new EventEmitter();
+        @Output() ssnValidation
         caseCreateDataForm: FormGroup;
         caseCreateData: any;
         searchKey = '';
@@ -97,20 +98,21 @@ export class CategorySubjectPair {
           {
             this.caseCreateDataForm.reset();
             this.caseCreateData = new CaseCreateData();
-            //this.caseCreateDataForm.controls['dateReceived'].setValue(this.scannedDate);
             this.resetAddressFields();
           }
         }
     
         ngOnInit() {
     
+          //let rdate=new Date(this.scannedDate).toISOString().substring(0, 10);
+          //console.log("rdate : " , rdate);
           this.caseCreateData = new CaseCreateData();
           this.getLookUpValues();
           //this.currentDate = this.getCurrentDateString();
     
           this.caseCreateDataForm = this.fb.group({
             caseNumber: this.caseDocIntakeId,
-            caseForm: 'LS-262',
+            caseForm: 'LS-201',
             dateReceived: [this.scannedDate, Validators.required],
             SSN: ['', [Validators.minLength(9), Validators.pattern(this.numeric)]],
             //ssn: '',
@@ -121,13 +123,14 @@ export class CategorySubjectPair {
             injuredMidName: ['', [Validators.pattern(this.alphaNumeric)]],
             injuredFirstName: ['', [Validators.pattern(this.alphaNumeric)]],
             injPerPhoneNbr: ['', [Validators.minLength(10), Validators.pattern(this.numeric)]],
-            injPerAdrLine1: ['', [Validators.pattern(this.alphaNumeric)]],
+            injPerAdrLine1: ['', [Validators.required, Validators.pattern(this.alphaNumeric)]],
             injPerAdrLine2: ['', [Validators.pattern(this.alphaNumeric)]],
-            injPerAdrCity: ['', [Validators.pattern(this.alpha)]], //min length 1
-            injPerAdrState: ['', [Validators.pattern(this.alpha)]],
-            injPerAdrZip: ['', [Validators.pattern(this.numeric)]], //min length 5
+            injPerAdrCity: ['', [Validators.required, Validators.pattern(this.alphaNumeric)]],
+            injPerAdrState: ['', [Validators.required, Validators.pattern(this.alpha)]],
+            injPerAdrZip: ['', [Validators.required,  Validators.pattern(this.numeric)]],
             injPerAdrCountry: ['', [Validators.required ,Validators.pattern(this.alphaNumeric)]],
-            injuryType: '',
+            injuryType: ['', Validators.required],
+            caseType: ['', Validators.required],
             natureOfInjury: ['', [Validators.required]],
             partOfBody: ['', [Validators.required]],
             Employer1: ['', [Validators.required]],
@@ -138,7 +141,7 @@ export class CategorySubjectPair {
             EmpPartyAdr2: '',
             claimantLastName: '',
             claimantFirstName: '',
-            placeOfInjuryCtry: '',
+            placeOfInjuryCtry: ['', [Validators.required]],
             stateProvidence: '',
             extentOfInjury: '',
             claimantLN: '',
@@ -164,13 +167,12 @@ export class CategorySubjectPair {
             attPartyAdr3: '',
             attorney3Rep: '',
             carrier: ['', [Validators.pattern(this.alphaNumeric)]],
-            injuredPhone: '',
             contractingAgency: ['', [Validators.pattern(this.alphaNumeric)]],
             primeContract: ['', [Validators.pattern(this.alphaNumeric)]],
             subContract: ['', [Validators.pattern(this.alphaNumeric)]],
             sex: '',
             nationality: ['', [Validators.pattern(this.alpha)]],
-            /*firstLostTime: '',
+            firstLostTime: '',
             firstLosDate: '',
             payStoppedDate: '',
             returnedToWork: '',
@@ -191,69 +193,19 @@ export class CategorySubjectPair {
             dateSigned: '',
             claimAct: '',
             placeOfInjuryType: '',
+            causedDeath: '',
             causedLostTime: ['', [Validators.required]],
             stoppedWorkImmediately: '',
             doingUsualWork: '',
             onPremises: '',
             placeOfInjuryStSel: '',
-            dateReport: '',*/
+            dateReport: '',
     
-            caseType: ['', [Validators.required]],
-            attorney1Repname: '',
-            /*deceasedFirstName: '',
-            deceasedMiddleName: '',
-            deceasedLastName: '',
-            deceasedAdrLine1: '',
-            deceasedAdrLine2: '',
-            deceasedAdrCity: '',
-            deceasedAdrState: '',
-            deceasedAdrZip: '',
-            deceasedAdrCtry: '',*/
-            placeDeathCity: '',
-            placeDeathSt: '',
-            placeDeathCtry: ['', [Validators.required]],
-            dateOfDeath: '',
-            causeOfInjury: '',
-            widowFirstName: '',
-            widowMidName: '',
-            widowLastName: ['', [Validators.required]],
-            widowAdrLine1: ['', [Validators.required]],
-            widowAdrLine2: '',
-            widowAdrCity: ['', [Validators.required]],
-            widowAdrSt: ['', [Validators.required]],
-            widowAdrZip: ['', [Validators.required]],
-            widowAdrCountry: ['', [Validators.required]],
-            widowSSN: '',
-            widowDateOfBirth: '',
-            widowNationality: '',
-            widowPhone: '',
-            widowSignatureDate: '',
-            childFirstName: '',
-            childMidName: '',
-            childLastName: ['', [Validators.required]],
-            childAdrLine1: ['', [Validators.required]],
-            childAdrLine2: '',
-            childAdrCity: ['', [Validators.required]],
-            childAdrSt: ['', [Validators.required]],
-            childAdrZip: ['', [Validators.required]],
-            childAdrCtry: ['', [Validators.required]],
-            childSSN: '',
-            childDateOfBirth: '',
-            childNationality: '',
-            dependentFirstName: '',
-            dependentMidName: '',
-            dependentLastName: ['', [Validators.required]],
-            dependentAdrLine1: ['', [Validators.required]],
-            dependentAdrLine2: '',
-            dependentAdrCity: ['', [Validators.required]],
-            dependentAdrSt: ['', [Validators.required]],
-            dependentAdrZip: ['', [Validators.required]],
-            dependentAdrCtry: ['', [Validators.required]],
-            dependentSignatureDate: '',
-            dependencyType: '',
-            guardian: '',
-            claimantType: '',
-            dependentAge: ''
+            //stoppedWork: ['', [Validators.required]],
+            claimantSignatureDate: '',
+            claimantPhone: '',
+            noticeDeliveryDate: '',
+            employeePhone: ''
     
           })
         }
@@ -321,7 +273,6 @@ export class CategorySubjectPair {
           });
         }
         
-    
         searchFilter($event) {
     
           console.log('user click event : ', $event.target.name);
@@ -436,11 +387,11 @@ export class CategorySubjectPair {
           let inputSsn = $event.target.value;
           console.log('casaValidation event : ', $event);
          console.log('$event.srcElement.id event : ', $event.srcElement.id);
-          if($event.srcElement.id === 'ssnData'  && inputSsn.length >= 9){
+          if($event.srcElement.id === 'ssnData' && inputSsn.length >= 9) {
             console.log("Text box Checked");
             //this.data1 = this.data;
             console.log(" SSSN Clicked ", inputSsn);
-            this.palService.checkPotentialDuplicateDataEntry(inputSsn).subscribe(
+            this.palService.checkPotentialDuplicateDataEntry(inputSsn, "", "", "").subscribe(
                   (response: Response) => {
                     //this.data = response.json().DocumentList;
                     this.data1 = response.json().duplicateDataList;  
@@ -460,7 +411,7 @@ export class CategorySubjectPair {
 
         checkDupeCase($event) {
           let inputSsn = $event.controls["SSN"].value;
-          let dateOfBirth = "";
+          let dateOfBirth = $event.controls["dateOfBirth"].value;
           let dateOfInjury = $event.controls["dateOfInjury"].value;
           let lastName = $event.controls["injuredLastName"].value;
     
@@ -484,7 +435,7 @@ export class CategorySubjectPair {
           console.log(value, valid);
           this.loading = true;
           $('#spinnerCasemodal').modal('show');
-          let updatedCaseCreateData = value;//this.setExtentOfInjury(value);
+          let updatedCaseCreateData = this.setExtentOfInjury(value);
           if(valid)
             this.caseCreateEvent.emit(updatedCaseCreateData);
         }

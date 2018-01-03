@@ -1,0 +1,80 @@
+<div class="row table-settings">
+    <div class="col-sm-6">
+	    <div class="dataTables_length" id="paltasks_length">
+		    <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage">
+		        <option [ngValue]="10">10</option>
+		        <option [ngValue]="25">25</option>
+		        <option [ngValue]="50">50</option>
+		        <option [ngValue]="100">100</option>
+		    </select> Entries</label>
+	    </div>
+    </div>
+    <div class="col-sm-6 text-right">
+	    <label class="label-control">
+	    	Search:
+	    <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery" />
+	    </label>
+    </div>
+ </div>
+ 
+
+<div class="panel panel-default">
+    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+            <th>
+                <mfDefaultSorter by="TaskData.canonicalDocument.canonical.caseDetails.caseNumber">Case Number</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="TaskData.canonicalDocument.canonical.caseDetails.claimant.claimantName.lastName">Name</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="TaskData.canonicalDocument.canonical.caseDetails.taskType">Task Type</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter [by]="sortLastActionDate">Last Action</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter [by]="sortFirstDueDate">First/Next Due Date</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter [by]="sortLastDueDate">Final Due Date</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="TaskInfo.lastAcceptedBy">Pending With</mfDefaultSorter>
+            </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="isDataAvailable">
+        <tr *ngFor="let item of mf.data; let i = index" (click)="setClickedRow(i)" [class.active]="i == selectedRow">
+            <!--  td>
+                <button (click)="remove(item)" class="btn btn-danger">x</button>
+            </td -->
+            <td><a (click)="setCaseDetail($event,item.TaskID)">{{item.TaskData.canonicalDocument.canonical.caseDetails.caseNumber}}</a></td>
+            <td>{{item.TaskData.canonicalDocument.canonical.caseDetails.claimant.claimantName.lastName}}</td>
+            <td>{{item.TaskData.canonicalDocument.canonical.caseDetails.taskType}}</td>
+            <td>{{item.TaskData.canonicalDocument.canonical.caseDetails.lastAction}}</td>
+            <td>{{item.TaskData.canonicalDocument.canonical.caseDetails.firstDueDate}}</td>
+            <td>{{item.TaskData.canonicalDocument.canonical.caseDetails.lastDueDate}}</td>
+            <td>{{item.TaskInfo.lastAcceptedBy}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+        	<td colspan="4">
+               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+                  &nbsp;
+            </td>
+            <td colspan="3" align="right">
+               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+                  <mfBootstrapPaginator></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="well well-lg">
+    Selected Row : <strong>{{selectedRow}}</strong>
+</div>
+ 

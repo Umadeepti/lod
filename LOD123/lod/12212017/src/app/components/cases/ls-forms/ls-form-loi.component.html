@@ -1,0 +1,670 @@
+<form novalidate (ngSubmit)="onSubmit(caseCreateDataForm)" [formGroup]="caseCreateDataForm">
+    		
+    <div class="form-group row has-icon icon-right">
+        <label for="dateSubmitted" class="col-xs-5 col-form-label col-form-label-sm">Received Dt<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                    <input class="form-Nav" type="date" [value]=scannedDate id="dateReceived" name="dateReceived" formControlName="dateReceived" [max]=currentDate/>
+                <span class="input-group-addon">
+                    <span> <i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('dateReceived').hasError('required') && caseCreateDataForm.get('dateReceived').touched">
+                Received Date is required
+            </div>
+        </div>
+    </div>
+    <div class="form-group row has-icon icon-left">
+        <label for="ssnData" class="col-xs-5 col-form-label col-form-label-sm">SSN</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                        <span><i class="fa fa-list-ol" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="ssnData" (blur)="casaValidation($event)" placeholder="999999999" name="ssnData" formControlName="SSN"/> 
+                <!-- <input type="text" class="form-Nav form-Nav-sm" id="APSettAmtInput" (blur)="casaValidation($event)" placeholder="12345ABCDE"/> -->
+                </div>
+        </div>
+    </div>
+    <div class="form-group row has-icon icon-right">
+        <label for="dateOfInj-date-input" class="col-xs-5 col-form-label col-form-label-sm">Date of Injury<span class="input-required">*</span></label>
+        <div class="col-xs-7">						
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="dateOfInj-date-input"  (blur)="checkDupeCase(caseCreateDataForm)" name="dateOfInjury" formControlName="dateOfInjury" [max]=currentDate />
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('dateOfInjury').hasError('required') && caseCreateDataForm.get('dateOfInjury').touched">
+                Date of Injury is required
+            </div>
+        </div>
+    </div>
+    <div class="form-group row has-icon icon-right">
+        <label for="dateOfBirth-date-input" class="col-xs-5 col-form-label col-form-label-sm">Date of Birth</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="dateOfBirth-date-input"  (blur)="checkDupeCase(caseCreateDataForm)"  name="dateOfBirth" formControlName="dateOfBirth" />
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+                </div>
+        </div>
+    </div>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="Lname-text-input" class="col-xs-5 col-form-label col-form-label-sm">Last Name<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span> <i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="Lname-text-input" placeholder="Doe"  (blur)="checkDupeCase(caseCreateDataForm)"  name="injuredLastName" formControlName="injuredLastName"/>
+            </div>
+            <div class="alert alert-danger" *ngIf="(caseCreateDataForm.get('injuredLastName').hasError('required') || caseCreateDataForm.get('injuredLastName').hasError('pattern')) && caseCreateDataForm.get('injuredLastName').touched">
+                Invalid Last Name
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group row has-icon icon-left">
+        <label for="fname-text-input" class="col-xs-5 col-form-label col-form-label-sm">Injured First Name, MI</label>
+        <div class="col-xs-5">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="fname-text-input" placeholder="John" name="injuredFirstName" formControlName="injuredFirstName"/>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                </span>
+                <input type="text" class="form-Nav form-Nav-sm" id="fname-text-input" name="injuredMidName" formControlName="injuredMidName"/>
+            </div>
+        </div>
+    </div>
+    <fieldset class="form-field-indent" >
+    
+        <div class="form-group row has-icon icon-left">
+            <label for="caddress1-text-input" class="col-xs-5 col-form-label col-form-label-sm">Address</label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="caddress1-text-input" placeholder="Line 1" name ="injPerAdrLine1" formControlName="injPerAdrLine1" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row has-icon icon-left">
+            <label for="caddress2-text-input" class="col-xs-5 col-form-label col-form-label-sm">Address</label>
+            <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <span><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                    </span>
+                    <input type="text" class="form-Nav form-Nav-sm" id="caddress2-text-input" placeholder="Line 2" name ="injPerAdrLine2" formControlName="injPerAdrLine2"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row ">
+            <label for="cAddressStSel" class="col-xs-5 col-form-label col-form-label-sm">City, State</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-Nav form-Nav-sm" id="cAddressStSel" name="injPerAdrCity" formControlName="injPerAdrCity" />
+            </div>
+            <div class="col-xs-3">
+                <select class="form-Nav" id="cAddressStSel" name ="injPerAdrState" formControlName="injPerAdrState" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let usStateLNames of USStateList" value= {{usStateLNames.text}}>{{usStateLNames.description}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row ">
+            <label for="cAddressStZip" class="col-xs-5 col-form-label col-form-label-sm">Zip, Country<span class="input-required">*</span></label>
+            <div class="col-xs-3">
+                <input type="text" class="form-Nav form-Nav-sm" id="cAddressStZip" name="injPerAdrZip" formControlName="injPerAdrZip"/>
+            </div>
+            <div class="col-xs-3">
+                <select class="form-Nav" id="injPerAdrCountry" name="injPerAdrCountry" formControlName="injPerAdrCountry" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let CountryType of CountryList" value= {{CountryType.text}}>{{CountryType.description}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('injPerAdrCountry').hasError('required') && caseCreateDataForm.get('injPerAdrCountry').touched">
+                    Country Field is required
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="case_caseType" class="col-xs-5 col-form-label col-form-label-sm" title="I hereby make claim for compensation benefits, monetary and medical, under the">Act<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                        <span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                </span>
+                <select class="form-Nav" id="case_caseType" name="caseType" formControlName="caseType">
+                        <option value="">Select</option>
+                        <option value="LHWCA">LHWCA</option>
+                        <option value="NAFIA">NAFIA</option>
+                        <option value="OCSLA">OCSLA</option>
+                        <option value="DBA">DBA</option>
+                        <option value="Unknown">Unknown</option>
+                </select>
+            </div>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('caseType').hasError('required') && caseCreateDataForm.get('caseType').touched">
+                    Act is required
+            </div>
+        </div>
+    </div>
+        
+    <div class="form-group row has-icon icon-left">
+        <label for="InjurySel" class="col-xs-5 col-form-label col-form-label-sm">Injury Type<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <span><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                </span>
+                <select class="form-Nav" id="InjurySel" name="injuryType" formControlName="injuryType">
+                    <option value="">Select</option>
+                    <option *ngFor=" let InjuryType of InjuryTypeList" value= {{InjuryType.Text}}>{{InjuryType.Description}}</option>
+                </select>
+            </div>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('injuryType').hasError('required') && caseCreateDataForm.get('injuryType').touched">
+                    Injury Type is required
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="case_COfInjury" class="col-xs-5 col-form-label col-form-label-sm">Cause of Injury<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <select class="form-Nav" id="case_COfInjury" name="causeOfInjury" formControlName="causeOfInjury">
+                <option value="">Select</option>
+                <option *ngFor=" let CauseOfInjury of CauseOfInjuryList" value={{CauseOfInjury.Text}}>{{CauseOfInjury.Description}}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('causeOfInjury').hasError('required') && caseCreateDataForm.get('causeOfInjury').touched">
+                    Cause of Injury is required
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row has-icon icon-left">
+        <label for="NatureInj-text-input" class="col-xs-5 col-form-label col-form-label-sm">Nature of Injury<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <!-- <span class=" fa fa-list-alt"></span> -->
+                    <span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                </span>
+                <select class="form-Nav" id="natureOfInjurySel" name ="natureOfInjury" formControlName="natureOfInjury">
+                        <option value="">Select</option>
+                        <option *ngFor=" let NatureOfInjury of NatureOfInjuryList" value= {{NatureOfInjury.Text}}>{{NatureOfInjury.Description}}</option>
+                </select>
+            </div>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('natureOfInjury').hasError('required') && caseCreateDataForm.get('natureOfInjury').touched">
+                    Nature of Injury is required
+            </div>
+        </div>
+    </div>
+    <div class="form-group row has-icon icon-left">
+        <label for="PartOfBD-text-input" class="col-xs-5 col-form-label col-form-label-sm">Part of Body<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+                <div class="input-group"> 
+                    <span class="input-group-addon">
+                        <!-- <span class=" fa fa-list-alt"></span> -->
+                        <span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                    </span>
+                    <select class="form-Nav" id="PartOfBD-text-input" name ="partOfBody" formControlName="partOfBody">
+                            <option value="">Select</option>
+                            <option *ngFor=" let PartOfBody of PartOfBodyList" value= {{PartOfBody.Text}}>{{PartOfBody.Description}}</option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('partOfBody').hasError('required') && caseCreateDataForm.get('partOfBody').touched">
+                        Part of Body is required
+                </div>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="categorySel" class="col-xs-5 col-form-label col-form-label-sm">Employer<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <input id="employer1" name="employer1" type="text"  placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="Employer1" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredEmpList.length > 0">
+                <option *ngFor=" let empParty of filteredEmpList" value= {{empParty.party_name}} (click)="select(empParty , searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestion-address" *ngIf="employerAddress1.length > 0">
+                <label for="emp1Address">{{employerAddress1}}</label>
+            </div>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('Employer1').hasError('required') && caseCreateDataForm.get('Employer1').touched">
+                    Employer is required
+            </div>			  
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="categorySel" class="col-xs-5 col-form-label col-form-label-sm">Employer</label>
+        <div class="col-xs-7">
+            <input id="employer2" name="employer2" type="text"  placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="Employer2" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredEmp2List.length > 0">
+                <option *ngFor=" let empParty of filteredEmp2List" value= {{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="employerAddress2.length > 0">
+                <label for="emp2Address">{{employerAddress2}}</label>
+            </div>		  
+        </div>
+
+    </div>
+        
+    <div class="form-group row">
+        <label for="plcInj-text-input" class="col-xs-5 col-form-label col-form-label-sm">Place of Injury Country</label>
+        <div class="col-xs-7">
+                <select class="form-Nav" id="placeOfInjuryCtry"  name="placeOfInjuryCtry" formControlName="placeOfInjuryCtry">
+                    <option value="">Select</option>
+                    <option *ngFor=" let CountryType of CountryList" value= {{CountryType.text}}>{{CountryType.description}}</option>
+                </select>
+        </div>
+    </div>
+    <fieldset class="form-field-indent" >
+        <div class="form-group row has-icon icon-left">
+            <label for="extentInj-text-input" class="col-xs-5 col-form-label col-form-label-sm">State/Prov(US/CAN)</label>
+            <div class="col-xs-7">
+                    <div class="input-group"> 
+                        <span class="input-group-addon">
+                            <!-- <span class=" fa fa-list-alt"></span> -->
+                            <span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                        </span>
+                            <select class="form-Nav" id="InjurySel" name="stateProvidence" formControlName="stateProvidence">
+                                    <option value="">Select</option>
+                                    <option *ngFor=" let CAProvinceListVal of USStateList" value= {{CAProvinceListVal.text}}>{{CAProvinceListVal.description}}</option>
+                            </select>
+                    </div>
+            
+            </div>
+        </div>
+    </fieldset>
+    
+    <div class="form-group row has-icon icon-left">
+        <label for="extentInj-text-input" class="col-xs-5 col-form-label col-form-label-sm">Extent of Injury<span class="input-required">*</span></label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <span class="input-group-addon">
+                    <!-- <span class=" fa fa-list-alt"></span> -->
+                    <span> <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+                </span>
+                <select class="form-Nav" id="InjurySel" name ="extentOfInjury" formControlName="extentOfInjury">
+                    <option value="">Select</option>
+                    <option *ngFor=" let ExtentOfInjury of ExtentOfInjuryList" value= {{ExtentOfInjury.Text}}>{{ExtentOfInjury.Description}}</option>
+                </select>
+            </div>
+            <div class="alert alert-danger" *ngIf="caseCreateDataForm.get('extentOfInjury').hasError('required') && caseCreateDataForm.get('extentOfInjury').touched">
+                    Extent of Injury is required
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="case-timeOfInj" class="col-xs-5 col-form-label col-form-label-sm">First Name, MI</label>
+        <div class="col-xs-5">
+            <input type="text" class="form-Nav form-Nav-sm" id="case-timeOfInj" placeholder="John" name ="claimantFN" formControlName="claimantFN"/>
+        </div>
+        <div class="col-xs-2">
+            <input type="text" class="form-Nav form-Nav-sm" id="case-timeOfInj"  name ="claimantMN" formControlName="claimantMN"/>
+        </div>
+    </div>
+
+    <fieldset class="form-field-indent" >
+        <div class="form-group row">
+            <label for="case-claimantLN" class="col-xs-5 col-form-label col-form-label-sm">Claimant Last Name</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-Nav form-Nav-sm" id="case-carrNum" placeholder="Doe" name="claimantLN" formControlName="claimantLN" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="case-Address1" class="col-xs-5 col-form-label col-form-label-sm">Address</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-Nav form-Nav-sm" id="case-Address1" placeholder="Line 1" name="claimantAdd1" formControlName="claimantAdd1"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="case-Address2" class="col-xs-5 col-form-label col-form-label-sm">Address</label>
+            <div class="col-xs-7">
+                <input type="text" class="form-Nav form-Nav-sm" id="case-Address2" placeholder="Line 2" name="claimantAdd2" formControlName="claimantAdd2"/>
+            </div>
+        </div>
+            <div class="form-group row">
+            <label for="case_City" class="col-xs-5 col-form-label col-form-label-sm">City, State</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-Nav form-Nav-sm" id="case_City_City" placeholder="city" name ="claimantCity" formControlName="claimantCity"/>
+            </div>
+            <div class="col-xs-4">
+                <select class="form-Nav" id="claimantState" name ="claimantState" formControlName="claimantState" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let usStateLNames of USStateList" value= {{usStateLNames.text}}>{{usStateLNames.description}}</option>
+                </select>
+            </div>
+        </div>   
+            <div class="form-group row">
+            <label for="case_Zip" class="col-xs-5 col-form-label col-form-label-sm">Zip, Country</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-Nav form-Nav-sm" id="case_Zip_Zip" placeholder="zip" name="claimantZip" formControlName="claimantZip"/>
+            </div>
+            <div class="col-xs-4">
+                <select class="form-Nav" id="claimantCountry" name ="claimantCountry" formControlName="claimantCountry" >
+                    <option value="">Select</option>
+                    <option *ngFor=" let CountryType of CountryList" value= {{CountryType.text}}>{{CountryType.description}}</option>
+                </select>
+            </div>
+        </div>   
+    </fieldset>
+    <div class="form-group row">
+        <label for="case-CarrierName1" class="col-xs-5 col-form-label col-form-label-sm">34. Carrier</label>
+        <div class="col-xs-7">
+            <input id="carrierName1" name="carrierName1" type="text" placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="carrierName1" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredCarr1List.length > 0">
+                    <option *ngFor=" let empParty of filteredCarr1List" value={{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="carrierAddress1.length > 0">
+                <label for="carrierPartyAdr1">{{carrierAddress1}}</label>
+            </div>		  
+        </div>	
+    </div>
+    <div class="form-group row">
+        <label for="case-CarrierName2" class="col-xs-5 col-form-label col-form-label-sm">Carrier</label>
+        <div class="col-xs-7">
+            <input id="carrierName2" name="carrierName2" type="text" placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="carrierName2" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredCarr2List.length > 0">
+                
+                    <option *ngFor=" let empParty of filteredCarr2List" value= {{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="carrierAddress2.length > 0">
+                <label for="carrierPartyAdr2">{{carrierAddress2}}</label>
+            </div>		  
+        </div>	
+    </div> 
+
+    <div class="form-group row">
+        <label for="dateSigned" class="col-xs-5 col-form-label col-form-label-sm">Date Signed</label>
+        <div class="col-xs-7">
+            <div class="input-group"> 
+                <input class="form-Nav" type="date" value="2017-01-01" id="dateSigned" name="dateSigned" formControlName="dateSigned"/>
+                <span class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="case-Attorney1" class="col-xs-5 col-form-label col-form-label-sm">Attorney</label>
+        <div class="col-xs-7">
+            <input id="attorney1" name="attorney1" type="text" placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="attorney1" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredAtty1List.length > 0">
+                
+                    <option *ngFor=" let empParty of filteredAtty1List" value= {{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="attorneyAddress1.length > 0">
+                <label for="att1Address">{{attorneyAddress1}}</label>
+            </div>
+                        
+        </div>
+    </div> 
+    <fieldset class="form-field-indent" >                                                                 
+        <div class="form-group row">
+            <label for="case_Att1_Repr" class="col-xs-5 col-form-label col-form-label-sm">Representing</label>
+            <div class="col-xs-7">
+                <select class="form-Nav" id="case_Att1_Repr"  name="attorney1Rep" formControlName="attorney1Rep">
+                        <option value="">Select</option>
+                        <option value="Employer1">Employer1</option>
+                        <option value="Employer2">Employer2</option>
+                        <option value="Carrier1">Carrier1</option>
+                        <option value="Carrier2">Carrier2</option>
+                        <option value="Injured Worker">Injured Worker</option>
+                </select>
+            </div>
+        </div>    
+    </fieldset>               
+    <div class="form-group row">
+        <label for="case-Attorney2" class="col-xs-5 col-form-label col-form-label-sm">Attorney</label>
+        <div class="col-xs-7">
+            <input id="attorney2" name="attorney2" type="text"  placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="attorney2" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredAtty2List.length > 0">
+                
+                    <option *ngFor=" let empParty of filteredAtty2List" value= {{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="attorneyAddress2.length > 0">
+                <label for="att1Address">{{attorneyAddress2}}</label>
+            </div>		  
+        </div>
+    </div> 
+    <fieldset class="form-field-indent" >                                                               
+        <div class="form-group row">
+            <label for="case_Att2_Repr" class="col-xs-5 col-form-label col-form-label-sm">    Representing</label>
+            <div class="col-xs-7">
+                <select class="form-Nav" id="case_Att2_Repr" name="attorney2Rep" formControlName="attorney2Rep">
+                        <option value="">Select</option>
+                        <option value="Employer1">Employer1</option>
+                        <option value="Employer2">Employer2</option>
+                        <option value="Carrier1">Carrier1</option>
+                        <option value="Carrier2">Carrier2</option>
+                        <option value="Injured Worker">Injured Worker</option>
+                </select>
+            </div>
+        </div> 
+    </fieldset>                 
+    <div class="form-group row">
+        <label for="case-Attorney3" class="col-xs-5 col-form-label col-form-label-sm">Attorney</label>
+        <div class="col-xs-7">
+            <input id="attorney3" name="attorney3" type="text" placeholder="Three letters to search" class="form-Nav form-Nav-sm validate filter-input" formControlName="attorney3" (keyup)=searchFilter($event)>
+            <div class="suggestions" *ngIf="filteredAtty3List.length > 0">
+                
+                    <option *ngFor=" let empParty of filteredAtty3List" value= {{empParty.party_name}} (click)="select(empParty, searchKey)">{{empParty.party_name}} {{empParty.address_street1}} {{empParty.city}}</option>
+            </div>
+            <div class="suggestions-address" *ngIf="attorneyAddress3.length > 0">
+                <label for="att1Address">{{attorneyAddress3}}</label>
+            </div>		  
+        </div>	
+    </div>  
+    <fieldset class="form-field-indent" >                                                                
+        <div class="form-group row">
+            <label for="case_Att3_Repr" class="col-xs-5 col-form-label col-form-label-sm">    Representing</label>
+            <div class="col-xs-7">
+                <select class="form-Nav" id="case_Att3_Repr" name ="attorney3Rep" formControlName="attorney3Rep">
+                        <option value="">Select</option>
+                        <option value="Employer1">Employer1</option>
+                        <option value="Employer2">Employer2</option>
+                        <option value="Carrier1">Carrier1</option>
+                        <option value="Carrier2">Carrier2</option>
+                        <option value="Injured Worker">Injured Worker</option>
+                </select>
+            </div>
+        </div>  
+    </fieldset>    
+    <!--                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    <div class="form-group row">
+        <label for="case-InjPhone" class="col-xs-5 col-form-label col-form-label-sm">4. Injured Phone</label>
+        <div class="col-xs-7">
+            <input type="text" class="form-Nav form-Nav-sm" id="case-InjPhone" placeholder="911-911-9110" name ="injuredPhone" formControlName="injuredPhone"/>
+        </div>
+    </div>      -->                                                                                             
+    <div class="row form-group">
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <button class="btn btn-primary btn-block" type="button"  (click)="cancelCaseCreate()">Cancel </button>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <button class="btn btn-primary btn-block" type="submit" [disabled]="caseCreateDataForm.invalid">CREATE CASE </button>
+        </div>
+    </div>
+			
+
+</form>
+
+<!-- Start remDupCase popup -->
+<div id="remDupCase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document" style="width: 800px;">
+        <div class="modal-content alert-default">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title" id="ModalLabel1">Below are Potential Duplicates </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="dupCase_length">
+                            <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage1" name="">
+                                <option [value]="5">5</option>
+                                <option [value]="10">10</option>
+                                <option [value]="20">20</option>
+                                <option [value]="100">100</option>
+                            </select> Entries</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label class="label-control">
+                            Search:
+                        <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery1" />
+                        </label>
+                    </div>    
+                </div>
+                <div class="panel panel-default">
+                    <table class="table table-striped" [mfData]="data1 | dataFilter : filterQuery1" #mf1="mfDataTable"
+                                [mfRowsOnPage]="rowsOnPage1" [(mfSortBy)]="sortBy1" [(mfSortOrder)]="sortOrder1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <mfDefaultSorter by="ssn">SSN</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="doi">DOI</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="dob">DOB</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter [by]="lastName">Last Name</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter [by]="firstName">First Name</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter [by]="partOfBody">Part of Body</mfDefaultSorter>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item1 of mf1.data; let i = index" (click)="setDupCaseRow(item1)" [class.active]="i == selectedRow1">
+                                <!--  td>
+                                    <button (click)="remove(item)" class="btn btn-danger">x</button>
+                                </td -->
+                                <td>{{item1.ssn}}</td>
+                                <td>{{item1.doi}}</td>
+                                <td>{{item1.dob}}</td>
+                                <td>{{item1.lastName}}</td>
+                                <td>{{item1.firstName}}</td>
+                                <td>{{item1.partOfBody}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+                                    &nbsp;
+                                </td>
+                                <td colspan="4">
+                                    <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+                                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End of remDupCase popup -->
+        
+<!-- Start remDupCaseDetail popup -->
+<div id="remDupCaseDetail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document" style="width: 800px;">
+        <div class="modal-content alert-default">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title" id="ModalLabel2">Please confirm this is a Duplicate Case</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default case-details" *ngIf="dupCaseDetail">
+                    <div class="panel-body">
+                        <div class="row">
+
+                        <div class="col-sm-6 col-md-4">                           
+                            <div><strong class="detail-label">Case:</strong> <span class="detail-value">{{dupCaseDetail.caseNumber}}</span></div>
+                            <div><strong class="detail-label">Date of Injury:</strong> <span class="detail-value">{{dupCaseDetail.doi}}</span></div>
+                            <div><strong class="detail-label">Place of Injury:</strong> <span class="detail-value">{{dupCaseDetail.placeOfInjuryState}} {{dupCaseDetail.placeOfInjuryCountry}}</span></div>
+                        </div>  
+                        
+                        <div class="col-sm-6 col-md-4">
+                                <div><strong class="detail-label">Status:</strong> <span class="detail-value">{{dupCaseDetail.caseStatusDesc}}</span></div>
+                                <div><strong class="detail-label">Case Type:</strong> <span class="detail-value">{{dupCaseDetail.caseType}}</span></div>
+                            <div><strong class="detail-label">Extent of Injury:</strong> <span class="detail-value">{{dupCaseDetail.extentOfInjury}}</span></div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div><strong class="detail-label">RCE:</strong> <span class="detail-value">{{dupCaseDetail.claimsExaminerName}}</span></div>
+                            <div><strong class="detail-label">Nature of Injury:</strong> <span class="detail-value">{{dupCaseDetail.natureOfInjury}}</span></div>
+                            <div><strong class="detail-label">Part of Body:</strong> <span class="detail-value">{{dupCaseDetail.bodyPartInjury}} {{dupCaseDetail.bodyPartOrientation}}</span></div>
+                        </div> 
+                        </div>
+                        
+                        <div class="row">
+                        <div class="col-sm-6 col-md-4"><strong class="detail-label">Injured:</strong> <span class="detail-value">{{dupCaseDetail.lastName}}, {{dupCaseDetail.firstName}}</span></div> 
+                        <div class="col-sm-6 col-md-4"><strong class="detail-label">Address:</strong> <span class="detail-value">{{dupCaseDetail.injuredWorkerAddressStr1}} {{dupCaseDetail.injuredWorkerCity}}</span></div>
+                        <div class="col-sm-6 col-md-4">
+                            <div><strong class="detail-label">Injury Type:</strong> <span class="detail-value">{{dupCaseDetail.injuryType}}</span></div>
+                            <div><strong class="detail-label">SSN:</strong> <span class="detail-value">{{dupCaseDetail.ssn}}</span></div>
+                            <div><strong class="detail-label">DOB:</strong> <span class="detail-value">{{dupCaseDetail.dob}}</span></div>
+                        </div>
+                        </div>
+                        
+                        <div class="row">
+                        <div class="col-sm-6 col-md-4"><strong class="detail-label">Claimant:</strong> <span class="detail-value">{{dupCaseDetail.claimantLastName}}, {{dupCaseDetail.claimantFirstName}}</span></div> 
+                        <div class="col-sm-6 col-md-4"><strong class="detail-label">Address:</strong> <span class="detail-value">{{dupCaseDetail.claimantAddressStr1}} {{dupCaseDetail.claimantCity}}</span></div>
+                        <div class="col-sm-6 col-md-4"><strong class="detail-label">Type:</strong> <span class="detail-value">{{dupCaseDetail.claimantType}} </span></div>
+                        </div>
+                        
+                        <div class="row">                  
+                        <div class="col-sm-6 col-md-4"><strong class="detail-label">Employer:</strong> <span class="detail-value">{{dupCaseDetail.empName}}</span></div> 
+                        <div class="col-sm-6 col-md-4"><strong class="detail-label">Address:</strong> <span class="detail-value">{{dupCaseDetail.empAddressStr1}} {{dupCaseDetail.empCity}}</span></div>
+                    </div>
+                    </div>
+                    
+                    <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block" (click)="dupCaseLetter('N')">Confirm Duplicate <div class="help">(no letter)</div></button>                  
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block" (click)="dupCaseLetter('Y')">Confirm Duplicate <div class="help">(send letter)</div></button>                  
+                    </div>
+                    <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" (click)="dupCaseBack()">Duplicate Case List <div class="help">(Back)</div></button>
+                    </div>
+                    <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" (click)="dupCaseCancel()">Cancel<div class="help"> </div></button>
+                        </div>
+                        
+                        
+                </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- End of remDupCaseDetail popup -->

@@ -1,0 +1,119 @@
+<div class="main-content row">
+	
+	<ul class="nav nav-tabs appmenu">
+		<li [ngClass]="{active: selectedCTab==='cDocument'}" (click)="selectedCTab='cDocument'">
+			<a style="cursor: pointer;" (click)="gotoCaseDocuments()">Documents</a>
+		</li> 
+		<li [ngClass]="{active: selectedCTab==='casedetailview'}" (click)="selectedCTab='casedetailview'">
+			<a style="cursor: pointer;" (click)="gotoCaseDataView()" >Case Data</a>
+		</li>
+	</ul>
+
+	<div class="row">
+		<div class="col-md-8 col-sm-6">
+		<div class="row">&nbsp;
+		</div>
+		<div class="row" style="text-align: center;">
+		<button type="submit" (click)="goPrevious()"><span>&lt;</span></button>
+  <button type="submit" (click)="goNext()"><span>&gt;</span></button>
+  <button type="submit" (click)="zoomIn()"><span>+</span></button>
+  <button type="submit" (click)="fit()"><span>100%</span></button>
+  <button type="submit" (click)="zoomOut()"><span>-</span></button>
+  <button type="submit" (click)="rotate()"><span>90</span></button>
+  <span>Page: </span><input type="text" placeholder="Page" [(ngModel)]="page">
+  </div>
+  <pdf-viewer [src]="pdfSrc" 
+  [page]="page" 
+  [rotation]="rotation"
+  [original-size]="originalSize"
+  [zoom]="zoom"
+  [show-all]="false" 
+  style="display: block;"></pdf-viewer>
+  
+		</div>
+		
+
+		<div class="col-md-4 col-sm-6">
+			
+			
+ 		
+<!-- <div class="panel panel-default"> -->
+
+		
+			<div class="portlet docsearch">
+				    <div class="col-sm-6">
+						    <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage">
+						        <option [ngValue]="10">10</option>
+						        <option [ngValue]="25">25</option>
+						        <option [ngValue]="50">50</option>
+						        <option [ngValue]="100">100</option>
+						    </select> Entries</label>
+				    </div>
+				    <div class="col-sm-6 text-right">
+					    <label class="label-control">
+					    	Search:
+					    <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery" />
+					    </label>
+				    </div>
+		
+			
+		    <table class="table table-striped" [mfData]="data | documentFilter : filterQuery" #mf="mfDataTable"
+		           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+		        <thead>
+		        <tr>
+		            <th style="width: 30%">
+		                <mfDefaultSorter by="sortAuthorDate">Category</mfDefaultSorter>
+		            </th>
+		            <th style="width: 20%">
+		                <mfDefaultSorter by="Category">Subject</mfDefaultSorter>
+		            </th>
+		            <th style="width: 30%">
+		                <mfDefaultSorter [by]="Subject">Author Date</mfDefaultSorter>
+					</th>
+					<th style="width: 20%">
+		                <mfDefaultSorter [by]="Subject">Received</mfDefaultSorter>
+					</th>
+		          
+		        </tr>
+		        </thead>
+		        <tbody>
+
+						<tr *ngFor="let item of mf.data; let i = index" (click)="setClickedRow(item)" [class.active]="i == selectedRow">
+								<td>{{item.DOCUMENT_CATEGORY_TYPE}}</td>
+								<td>{{(item.DOCUMENT_SUBJECT_DESC?.length>100)? (item.DOCUMENT_SUBJECT_DESC | slice:0:100)+'..':(item.DOCUMENT_SUBJECT_DESC)}}</td>
+								<td>{{item.DOCUMENT_AUTHOR_DATE}}</td>
+								<td>{{item.DOCUMENT_CREATE_DATE}}</td>
+							<!--	<td>{{item.CREATE_DTS | date: 'yyyy-MM-dd'}}</td> -->
+			</tr>
+			<!-- 
+		        <tr *ngFor="let item of mf.data; let i = index" (click)="setClickedRow(item)" [class.active]="i == selectedRow">
+		             
+		               
+		           
+		            <td>{{item.DOCUMENT_CATEGORY_TYPE}}</td>
+		            <td>{{(item.DOCUMENT_SUBJECT_DESC.length>10)? (item.DOCUMENT_SUBJECT_DESC | slice:0:10)+'..':(item.DOCUMENT_SUBJECT_DESC)}}</td>
+					<td>{{item.DOCUMENT_STATUS_TYPE}}</td>
+					<td>{{item.CREATE_DTS | date: 'yyyy-MM-dd'}}</td>
+				</tr>
+				 -->
+		        </tbody>
+		        <tr>
+		        	<td colspan="1">
+		               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+		                  &nbsp;
+		            </td>
+		            <td colspan="3">
+		               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+		                  <mfBootstrapPaginator></mfBootstrapPaginator>
+		            </td>
+		        </tr>
+		    </table>
+		        
+		</div>
+		
+
+		</div>
+					
+	</div>
+</div>
+

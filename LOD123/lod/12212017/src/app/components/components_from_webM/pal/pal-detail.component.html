@@ -1,0 +1,530 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-sm-6">
+		<div class="row">&nbsp;
+		</div>
+		<div class="row" style="text-align: center;">
+		<button type="submit" (click)="goPrevious()"><span>&lt;</span></button>
+  <button type="submit" (click)="goNext()"><span>&gt;</span></button>
+  <button type="submit" (click)="zoomIn()"><span>+</span></button>
+  <button type="submit" (click)="fit()"><span>100%</span></button>
+  <button type="submit" (click)="zoomOut()"><span>-</span></button>
+  <button type="submit" (click)="rotate()"><span>90</span></button>
+  <span>Page: </span><input type="text" placeholder="Page" [(ngModel)]="page">
+  </div>
+  <pdf-viewer [src]="pdfSrc" 
+  [page]="page" 
+  [rotation]="rotation"
+  [original-size]="originalSize"
+  [zoom]="zoom"
+  [show-all]="false" 
+  style="display: block;"></pdf-viewer>
+  
+		</div>
+		<div id="remDupCase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+		  <div class="modal-dialog" role="document" style="width: 800px;">
+		    <div class="modal-content alert-default">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+		           <h4 class="modal-title" id="ModalLabel1">Below are Potential Duplicates </h4>
+		      </div>
+			     <div class="modal-body">
+			        <div class="row">
+						    <div class="col-sm-6">
+							    <div class="dataTables_length" id="dupCase_length">
+								    <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage1" name="">
+								        <option [value]="5">5</option>
+								        <option [value]="10">10</option>
+								        <option [value]="20">20</option>
+								        <option [value]="100">100</option>
+								    </select> Entries</label>
+							    </div>
+						    </div>
+						    <div class="col-sm-6 text-right">
+							    <label class="label-control">
+							    	Search:
+							    <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery1" />
+							    </label>
+						    </div>    
+			          </div>
+			          <div class="panel panel-default">
+						    <table class="table table-striped" [mfData]="data1 | dataFilter : filterQuery1" #mf1="mfDataTable"
+						           [mfRowsOnPage]="rowsOnPage1" [(mfSortBy)]="sortBy1" [(mfSortOrder)]="sortOrder1">
+						        <thead>
+						        <tr>
+						            <th>
+						                <mfDefaultSorter by="ssn">SSN</mfDefaultSorter>
+						            </th>
+						            <th>
+						                <mfDefaultSorter by="doi">DOI</mfDefaultSorter>
+						            </th>
+						            <th>
+						                <mfDefaultSorter by="dob">DOB</mfDefaultSorter>
+						            </th>
+						            <th>
+						                <mfDefaultSorter [by]="lastName">Last Name</mfDefaultSorter>
+						            </th>
+						          <th>
+						                <mfDefaultSorter [by]="firstName">First Name</mfDefaultSorter>
+						            </th>
+						            <th>
+						                <mfDefaultSorter [by]="partOfBody">Part of Body</mfDefaultSorter>
+						            </th>
+						        </tr>
+						        </thead>
+						        <tbody>
+						        <tr *ngFor="let item1 of mf1.data; let i = index" (click)="setDupCaseRow(item1)" [class.active]="i == selectedRow1">
+						            <!--  td>
+						                <button (click)="remove(item)" class="btn btn-danger">x</button>
+						            </td -->
+						            <td>{{item1.ssn}}</td>
+						            <td>{{item1.doi}}</td>
+						            <td>{{item1.dob}}</td>
+						            <td>{{item1.lastName}}</td>
+						            <td>{{item1.firstName}}</td>
+						            <td>{{item1.partOfBody}}</td>
+						        </tr>
+						        </tbody>
+						        <tfoot>
+						        <tr>
+						        	<td colspan="2">
+						               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+						                  &nbsp;
+						            </td>
+						            <td colspan="4">
+						               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+						                  <mfBootstrapPaginator></mfBootstrapPaginator>
+						            </td>
+						        </tr>
+						        </tfoot>
+						    </table>
+						</div>
+			      	</div>
+		   
+		    </div>
+		  </div>
+		</div> <!-- End of first popup -->
+		<div id="remDupCaseDetail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+		  <div class="modal-dialog" role="document" style="width: 1200px;">
+		    <div class="modal-content alert-default">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+		           <h4 class="modal-title" id="ModalLabel2">Please confirm this is a Duplicate Case </h4>
+		      </div>
+			     <div class="modal-body">
+			        
+			          <div class="panel panel-default" *ngIf="dupCaseDetail">
+						    <table>
+						        
+						        <tbody>
+						        <tr>
+						            <td>Case Number: {{dupCaseDetail.ssn}}</td>
+						            <td>Name: {{dupCaseDetail.doi}}</td>
+						            <td>Office: {{dupCaseDetail.dob}}</td>
+						            <td>Assigned: {{dupCaseDetail.lastName}}</td>
+						            <td>Last Transfer: {{dupCaseDetail.firstName}}</td>
+						            <td>Last Reassign: {{dupCaseDetail.partOfBody}}</td>
+						        </tr>
+						        <tr>
+						            <td>DOI: {{dupCaseDetail.doi}}</td>
+						            <td>Waiver: {{dupCaseDetail.doi}}</td>
+						            <td>Status: {{dupCaseDetail.dob}}</td>
+						            <td>Other Documents: {{dupCaseDetail.lastName}}</td>
+						            <td>ALJ Documents: {{dupCaseDetail.firstName}}</td>
+						            <td>Ready for BRB : {{dupCaseDetail.partOfBody}}</td>
+						        </tr>
+						        <tr>
+						        
+						        </tr>
+						        </tbody>
+						       
+						    </table>
+						</div>
+						<div class="row">
+				         <div class="col-md-3">
+			                   <button class="btn btn-primary btn-block" data-ng-click="approvePalTask(taskID)">Confirm Duplicate <br> (no letter)</button>                  
+			               </div>
+			               <div class="col-md-3">
+			                   <button class="btn btn-primary btn-block" data-ng-click="approvePalTask(taskID)">Confirm Duplicate <br> (send letter)</button>                  
+			               </div>
+			               <div class="col-md-3">
+			                   <button class="btn btn-primary btn-block" data-ng-click="approvePalTask(taskID)">Back</button>                  
+			               </div>
+			               <div class="col-md-3">
+			                   <button class="btn btn-primary btn-block" data-ng-click="approvePalTask(taskID)">Cancel</button>                  
+			               </div>
+					   </div>
+			      	</div>
+		   
+		    </div>
+		  </div>
+		</div> <!-- End of first popup -->
+		<div id="remPadocMdl" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content alert-default">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+		           <h4 class="modal-title" id="ModalLabel">Claim Adjudication <div>Settlements</div></h4>
+		      </div>
+		          <form>
+		     <div class="modal-body">
+				<nav>
+		          <ul class="nav nav-justified">
+		            <li class="active"><a href="#">Step 1</a></li>
+		            <li><a href="#">Step 2</a></li>
+		            <li><a href="#">Step 3</a></li>
+		            <li><a href="#">Step 4</a></li>
+		            <li><a href="#">Step 5</a></li>
+		            <li><a href="#">Step 6</a></li>
+		          </ul>
+		        </nav>
+		           <div class="row">
+		          <div class="col-sm-12">
+		         
+		          
+		           <div class="row">
+		             <div class="col-sm-12">
+		             <h3 class="text-center" style="margin: 2em auto 3em">This page represents the PATDOC application.</h3>
+		             </div>
+		             <div class="col-sm-12">
+		             <p>The CE is drafting the below documents and will submit them to the DD for approval.</p>
+		             <ul>
+		             <li><label for="settlementapprovalmemo">Settlement Approval Memo</label>
+					 <textarea id="settlementapprovalmemo" cols="50" rows="3"></textarea>
+					 
+					 </li>
+		             <li><label for="settlementapprovalorder">Settlement Approval Order</label>
+		 			 <textarea id="settlementapprovalorder" cols="50" rows="3"></textarea>
+					 
+					 </li>
+		             </ul>
+		             </div>
+		          </div>
+		 
+		          </div>    
+		          </div>
+		      </div>
+			  <div class="modal-footer text-center">
+				<div class="row">
+			         <div class="col-sm-4 col-sm-offset-4">
+		                   <button class="btn btn-primary btn-block" data-ng-click="approvePalTask(taskID)">Submit</button>                  
+		               </div>
+				   </div>
+				</div>
+		          </form>
+				   
+		    </div>
+		  </div>
+		</div> <!-- End of PATDOC -->
+		
+		<div id="remindermodal" class="modal fade" tabindex="-1" role="dialog">
+			 <div class="modal-dialog" role="document">
+			   <div class="modal-content">
+			     <div class="modal-header">
+			       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+			       <h4 class="modal-title">Alert</h4>
+			     </div>
+			     <div class="modal-body">
+						 <div class="row">
+			         <div class="col-sm-12">
+				  <strong>ALERT</strong> Please confirm that the following pending issue(s) have been resolved.
+				  
+				  <form>
+				  <div class="checkbox">
+					<label><input type="checkbox" value="" /> <strong>ISSUE</strong> Temporary Disability</label>
+				  </div>
+			
+				  <div class="row checkbox">
+					<div class="col-sm-7 col-sm-offset-1">
+						<label><input type="checkbox" id="td1" value="" /> INTERVENTION Conference Scheduled</label>
+					</div>
+					<div class="col-sm-4">
+						7/28/2017
+					</div>
+				  </div>
+				  <div class="row checkbox">
+					<div class="col-sm-7 col-sm-offset-1">
+						<label>
+						<input type="checkbox" id="td2" value="" /> INTERVENTION Conference Scheduled</label>
+					</div>
+					<div class="col-sm-4">
+						8/4/2017
+					</div>
+				  </div>
+				  <div class="row checkbox">
+					<div class="col-sm-7 col-sm-offset-1">
+						<label>
+						<input type="checkbox" id="td3" value="" /> RESOLUTION Resolved with Conference</label>
+					</div>
+					<div class="col-sm-4">
+						8/07/2017
+					</div>
+				  </div>
+				  	
+				  
+				  <div class="form-check">
+					<label class="form-check-label"><input type="checkbox" value="" class="form-check-input" /> <strong>ISSUE</strong> Additional Compensation</label>
+				  </div>
+			
+				  <div class="row checkbox">
+					<div class="col-sm-7 col-sm-offset-1">
+						<label><input type="checkbox" id="ac1" value="" /> INTERVENTION Conference Scheduled</label>
+					</div>
+					<div class="col-sm-4">
+						8/15/2017
+					</div>
+				  </div>
+			
+				<div class="form-group">
+					    <label class="col-sm-3 control-label"> </label>
+					    <div class="col-sm-8">
+					    	<p class="form-control-static"><button id="dolremindercreatebutton" class="btn btn-primary" (click)="casaReIndexNext($event)" value="Reviewed">Reviewed</button></p>
+					    </div>
+					  </div>
+				  
+				  </form>
+				  </div>	  
+				  </div>
+			     </div>
+			   </div><!-- /.modal-content -->
+			 </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<div class="col-md-4 col-sm-6">
+			
+				<div class="portlet navigation" >
+					<header class="portlet-header">
+					 <b data-toggle="collapse" href="#70291516059420">
+						<!--  h2 class="portlet-title">Navigation</h2 -->
+						<h3 class="application-name">Claim Adjudication</h3>
+						<h3 class="application-name">Settlement Application</h3>
+						</b>
+					</header>
+
+					<div *ngIf="casaStep === 'mainStep'" class="portlet-content" id="radioPortlet">
+						<form>
+							<div class="form-group">
+								<label><input type="radio" name="optradio" value="Approved" [(ngModel)]="casaradioValue"> Approved</label>
+							</div>
+							<div class="form-group text-muted">
+							  <label><input type="radio" name="optradio" [(ngModel)]="casaradioValue" value="Deficient"/> Deficient</label>
+							</div>
+							
+							<div class="form-group text-muted">
+							  <label><input type="radio" name="optradio" [(ngModel)]="casaradioValue" value="Disapproved"/> Disapproved</label>
+							</div>
+							<div class="form-group" text-muted>
+							  <label><input type="radio" name="optradio" [(ngModel)]="casaradioValue" value="Withdrawn" /> Withdrawn</label>
+							</div>
+							<div class="form-group">
+							  <label><input type="radio" name="optradio" [(ngModel)]="casaradioValue" value="Re-index"/> Re-index</label>
+							</div>
+							<div class="row form-group">
+								<div class="col-sm-4 col-xs-5 col-sm-offset-8 col-xs-offset-7 text-right">
+									
+									<button class="btn btn-primary btn-block" (click)="casaNext()">Next</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div *ngIf="casaStep === 'mainStepApproved'" class="portlet-content" id="radioPortlet">
+						<form>
+							<h2 class="application-name">Approve Document</h2>
+							<div class="form-group row">
+							  <label for="APpaymentReqCat" class="col-sm-4 col-xs-5 col-form-label col-form-label-sm">Payment required</label>
+							    <div class="col-sm-8 col-xs-7">
+								  	<select class="form-Nav" name="PayReqdSel" id="PayReqdSel" [(ngModel)]="selectedPayment">
+										<option value="">Select</option>
+							  			<option *ngFor=" let payList of paymentList" value= {{payList.type}}>{{payList.type}}</option>
+									</select>
+							    </div>
+							</div>
+							<div class="form-group row">
+							  <label for="APSettTypeSelCat" class="col-sm-4 col-xs-5 col-form-label col-form-label-sm">Settlement Type</label>
+							  <div class="col-sm-8 col-xs-7">
+							    <select class="form-Nav" name="APSettTypeSel" id="APSettTypeSel" [(ngModel)]="selectedSettlement">
+									<option value="">Select</option>
+						  			<option *ngFor=" let setTypeList of settlementTypeList" value= {{setTypeList.type}}>{{setTypeList.type}}</option>
+								</select>							
+							  </div>
+							</div>
+							<div class="form-group row">
+							  <label for="APSettAmtInput" class="col-sm-4 col-xs-5 col-form-label col-form-label-sm">Settlement Amount</label>
+							  <div class="col-sm-8 col-xs-7">
+							        <input type="text" class="form-Nav form-Nav-sm" id="APSettAmtInput" (blur)="casaValidation($event)" placeholder="0.0"/>
+							  </div> 
+							</div>
+							<div class="form-group row">
+							  <label for="APSettcheckInput" class="col-sm-4 col-xs-5 col-form-label col-form-label-sm">Show Issue list</label>
+							  <div class="col-sm-8 col-xs-7">
+							        <input type="checkbox" class="form-check-input" id="APSettcheckInput" (change)="casaReIndexNext($event)"/>							        
+							  </div> 
+							</div>
+
+							<div class="row form-group">
+								<div class="col-sm-4 col-xs-5 text-left">
+									<input type="submit" value="Previous" (click)="casaReIndexNext($event)" class="btn btn-primary btn-block" id="ricancelButton"/>
+								</div>
+								<div class="col-sm-4 col-xs-5 col-sm-offset-4 col-xs-offset-2 text-right">
+									<button class="btn btn-primary btn-block" value="UpdateApprove" (click)="casaReIndexNext($event)">Next</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div *ngIf="casaStep === 'mainStepreindex'" class="portlet-content" id="reindexDocumentPortlet">
+						<form>
+						<h2 class="application-name">Re-index Document</h2>
+						<div class="form-group row">
+						  <label for="docId-text-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Case ID</label>
+						  <div class="col-lg-8 col-xs-7">
+						        <input type="text" class="form-Nav form-Nav-sm" id="docId-text-input" placeholder="12345ABCDE"/>
+						  </div>
+						</div>
+					
+						<div class="form-group row">
+						  <label for="categorySel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Category</label>
+						    <div class="col-lg-8 col-xs-7">
+							
+							<select class="form-Nav" (change)="change($event.target.options)" name="categorySel" id="categorySel" [(ngModel)]="selectedCategory">
+								<option value="">Select</option>
+							  	<option *ngFor=" let reindexCat of categoryList" value= {{reindexCat.Category}}>{{reindexCat.Category}}</option>
+							</select>
+						    
+						    </div>
+						</div>
+						
+						<div class="form-group row">
+						  <label for="subjectSel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Subject</label>
+						  <div class="col-lg-8 col-xs-7">						    
+							<select class="form-Nav" name="subjectSel" id="subjectSel" [(ngModel)]="selectedSubject">
+								<option value="">Select</option>
+							  	<option *ngFor=" let reindexSub of subjectList" value= {{reindexSub.value}}>{{reindexSub.value}}</option>
+							</select>
+						  </div>
+						</div>
+						
+						<div class="form-group row">
+						  <label for="reviewStatusSel" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Review Status</label>
+						  <div class="col-lg-8 col-xs-7">
+						    <select class="form-Nav" name="reviewStatusSel" id="reviewStatusSel" [(ngModel)]="selectedReviewStatus">
+								<option value="">Select</option>
+							  	<option *ngFor=" let reindexStat of reindexStatusList" value= {{reindexStat.type}}>{{reindexStat.type}}</option>
+							</select>						  
+						  </div>
+						</div>
+						
+						<div class="form-group row">
+						  <label for="received-date-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Received Date</label>
+						  <div class="col-lg-8 col-xs-7">
+						    <input class="form-Nav" type="date" value="2017-01-01" id="received-date-input"/>
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="pagecount-number-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Number</label>
+						  <div class="col-lg-8 col-xs-7">
+						    <input class="form-Nav" type="number" placeholder="3" id="pagecount-number-input"/>
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="bookmark-text-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Bookmark</label>
+						  <div class="col-lg-8 col-xs-7">
+						     <input type="text" class="form-Nav form-Nav-sm" id="bookmark-text-input" placeholder="yes"/>
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="postmark-date-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Postmark Date</label>
+						  <div class="col-lg-8 col-xs-7">
+						     <input type="date" class="form-Nav form-Nav-sm" value="2017-01-01" id="postmark-date-input"/>
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="capture-date-input" class="col-lg-4 col-xs-5 col-form-label col-form-label-sm">Capture Date</label>
+						  <div class="col-lg-8 col-xs-7">
+						     <input type="date" class="form-Nav form-Nav-sm" value="2017-01-01" id="capture-date-input"/>
+						  </div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-4 col-xs-5 text-left">
+								<input type="submit" value="Previous" (click)="casaReIndexNext($event)" class="btn btn-primary btn-block" id="ricancelButton"/>
+							</div>
+							<div class="col-sm-4 col-xs-5 col-sm-offset-4 col-xs-offset-2 text-right">
+								<button class="btn btn-primary btn-block" value="Update" (click)="casaReIndexNext($event)">UPDATE</button>
+							</div>
+						</div>
+
+						</form>
+					</div>
+							 
+				</div>
+ 		
+<!-- <div class="panel panel-default"> -->
+
+		
+			<div class="portlet docsearch">
+				    <div class="col-sm-6">
+						    <label>Show <select class="form-control input-sm" style="width: 40%; display: inline-block;" [(ngModel)]="rowsOnPage">
+						        <option [ngValue]="10">10</option>
+						        <option [ngValue]="25">25</option>
+						        <option [ngValue]="50">50</option>
+						        <option [ngValue]="100">100</option>
+						    </select> Entries</label>
+				    </div>
+				    <div class="col-sm-6 text-right">
+					    <label class="label-control">
+					    	Search:
+					    <input class="form-control" style="width: 60%; display: inline-block;" [(ngModel)]="filterQuery" />
+					    </label>
+				    </div>
+		
+			
+		    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+		           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+		        <thead>
+		        <tr>
+		            <th>
+		                <mfDefaultSorter by="sortReceivedDate">Received Date</mfDefaultSorter>
+		            </th>
+		            <th>
+		                <mfDefaultSorter by="sortAuthorDate">Author Date</mfDefaultSorter>
+		            </th>
+		            <th>
+		                <mfDefaultSorter by="Category">Category</mfDefaultSorter>
+		            </th>
+		            <th>
+		                <mfDefaultSorter [by]="Subject">Subject</mfDefaultSorter>
+		            </th>
+		          
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr *ngFor="let item of mf.data; let i = index" (click)="setClickedRow(item.DocReference)" [class.active]="i == selectedRow">
+		            <!--  td>
+		                <button (click)="remove(item)" class="btn btn-danger">x</button>
+		            </td -->
+		            <td>{{item.ReceivedDate}}</td>
+		            <td>{{item.AuthorDate}}</td>
+		            <td>{{item.Category}}</td>
+		            <td>{{item.Subject}}</td>
+		        </tr>
+		        </tbody>
+		        <tfoot>
+		        <tr>
+		        	<td colspan="4">
+		               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+		                  &nbsp;
+		            </td>
+		            <td colspan="3">
+		               <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator> -->
+		                  <mfBootstrapPaginator></mfBootstrapPaginator>
+		            </td>
+		        </tr>
+		        </tfoot>
+		    </table>
+		        
+		</div>
+		
+
+		</div>
+					
+	</div>
+</div>

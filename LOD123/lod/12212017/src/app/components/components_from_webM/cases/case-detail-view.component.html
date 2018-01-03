@@ -1,0 +1,341 @@
+<div class="main-content row">
+    <ul class="nav nav-tabs appmenu">
+        <li [ngClass]="{active: selectedCTab==='cDocument'}" (click)="selectedCTab='cDocument'">
+        <a style="cursor: pointer;" (click)="gotoCaseDocuments()" >Documents</a>
+        </li> 
+        <li [ngClass]="{active: selectedCTab==='selectedTabCaseData'}" (click)="selectedCTab='selectedTabCaseData'">
+        <a style="cursor: pointer;" (click)="gotoCaseDataView()" >Case Data</a>
+        </li>
+    </ul>
+    <div class="row">
+        <div class="panel panel-default case-details">
+            <div class="panel-body row">
+                <div class="col-sm-12 col-md-6">
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Case&nbsp;Number:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.CASE_NUMBER}}</span>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Status:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.CASE_STATUS_DESC}}</span>							
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Case Location:</strong>								
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.CASE_DISTRICT_OFFICE_NAME}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Date of Injury:</strong>								
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.INJURY_DATE}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Injury Type:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.INJURY_TYPE_DESC}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-12">
+                                                <strong class="detail-label">Injured Worker - :</strong>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">SSN:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_SOCIAL_SECURITY_NUMBER}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">DOB:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_BIRTH_DATE}}</span>							
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Name:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_NAME}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Address:</strong>                            
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_ADDRESS_STREET1}} {{caseDetail.IW_ADDRESS_STREET2}} {{caseDetail.IW_CITY}} 
+                                                {{caseDetail.IW_STATE}} {{caseDetail.IW_ZIP_CODE}} {{caseDetail.IW_ZIP_PLUS_FOUR}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Phone:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_PHONE_NUMBER}} </span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Date of Death:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_DECEASED_DATE }}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Marital Status:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_MARITIAL_STATUS_FLAG}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Sex:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_GENDER_FLAG}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Nationality:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.IW_NATIONAILITY}}</span>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-xs-12"></div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Date of Knowledge:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.INJURY_KNOWELDGE_DATE}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Place of Injury:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.PLACE_OF_INJURY_STATE}} {{caseDetail.PLACE_OF_INJURY_COUNTRY_CODE}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Extent of Injury:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.EXTENT_OF_INJURY_TYPE_DESC}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Cause of Injury:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.INJURY_CAUSE_TYPE}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Nature of Injury:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.INJURY_NATURE_DESC}}</span>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-5 text-right">
+                                        <strong class="detail-label">Part of Body:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                        <span class="detail-value">{{caseDetail.BODY_PART_ORIENTATION_DESC}}</span>                    </div>
+                        </div>
+
+                </div>
+                <div class="col-sm-12 col-md-6">
+
+                        <!-- CASE details -->
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Responsible Claims Examiner:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.CE_NAME}}</span>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Carrier #:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.CARRIER_CASE_NUMBER}}</span>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Act (Case Type):</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.CASE_ACT_TYPE_DESC}}</span>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Disability Type:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.INJURY_DISABILITY_TYPE}}</span>
+                            </div>
+                    </div>
+
+                    <!-- Claimant details -->
+                    <div class="row">
+                            <div class="col-xs-12">
+                                    <strong class="detail-label">Claimant(s):</strong>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Type:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value"></span>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Name:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value"></span>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Address:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value"></span>
+                            </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Phone:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value"></span>
+                            </div>
+                    </div>
+
+
+                    <!-- Employer details -->
+                    <div class="row">
+                            <div class="col-xs-12">
+                                    <strong class="detail-label">Employer(s):</strong>                               
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Name:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.EMP_NAME}}</span>
+                            </div>
+                    </div>
+
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Address:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.EMP_ADDRESS_STREET1}} {{caseDetail.EMP_ADDRESS_STREET2}} {{caseDetail.EMP_CITY}} 
+                                                    {{caseDetail.EMP_STATE}} {{caseDetail.EMP_COUNTRY_NAME}} {{caseDetail.EMP_ZIP_CODE}} {{caseDetail.EMP_ZIP_PLUS_FOUR}}</span>
+                            </div>
+                    </div>
+
+                    <!-- Carrier details -->
+                    <div class="row">
+                            <div class="col-xs-12">
+                                    <strong class="detail-label">Carrier(s):</strong>
+                            </div>
+                    </div>    
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Name:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.CAR_NAME}}</span>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-xs-5 text-right">
+                                    <strong class="detail-label">Address:</strong>
+                            </div>
+                            <div class="col-xs-7">
+                                    <span class="detail-value">{{caseDetail.CAR_ADDRESS_STREET1}} {{caseDetail.CAR_ADDRESS_STREET2}} {{caseDetail.CAR_CITY}} 
+                                                    {{caseDetail.CAR_STATE}} {{caseDetail.CAR_COUNTRY_NAME}} {{caseDetail.CAR_ZIP_CODE}} {{caseDetail.CAR_ZIP_PLUS_FOUR}}</span>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
